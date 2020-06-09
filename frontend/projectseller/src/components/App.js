@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './Home';
 import SearchProjects from './SearchProjects';
 import AddProject from './AddProject';
-
+import Project from './SingleProject';
 import Header from './Header';
 
 
@@ -16,7 +16,9 @@ class App extends Component {
           <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/search' component={SearchProjects} />
+              <Route path='/project/:PROJECT' component={Project} />
               <Route path='/add-project' component={AddProject} />
+
           </Switch>
         </div>
       </Router>
