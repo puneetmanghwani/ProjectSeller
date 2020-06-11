@@ -23,7 +23,9 @@ app.use(shopRoutes);
 app.use(sellerRoutes);
 app.use('/user', userRoutes);
 app.get('/checktoken', withAuth, function(req, res) {
-  res.sendStatus(200);
+  // res.sendStatus(200);
+  res.json("hello");
+
 })
 
 

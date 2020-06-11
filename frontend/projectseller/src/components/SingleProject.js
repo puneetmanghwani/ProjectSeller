@@ -4,9 +4,6 @@ import { Helmet } from 'react-helmet'
 
 
 
-const TITLE = 'Search Project';
-
-
 
 class Project extends Component {  
   constructor(props) {
@@ -40,7 +37,7 @@ class Project extends Component {
     return (
       <div>
         <Helmet>
-          <title>{ TITLE }</title>
+          <title>{ this.state.projectTitle }</title>
         </Helmet>
         <div style={{ display:'inline-block',width:300,margin:50 }}>
           <h3>{this.state.projectTitle}</h3>

@@ -4,6 +4,8 @@ import Home from './Home';
 import SearchProjects from './SearchProjects';
 import AddProject from './AddProject';
 import Project from './SingleProject';
+import Registration from './auth/registration';
+import Login from './auth/login';
 import Header from './Header';
 
 
@@ -18,6 +20,8 @@ class App extends Component {
               <Route path='/search' component={SearchProjects} />
               <Route path='/project/:PROJECT' component={Project} />
               <Route path='/add-project' component={AddProject} />
+              <Route path='/registration' component={Registration} />
+              <Route path='/login' component={Login} />
 
           </Switch>
         </div>

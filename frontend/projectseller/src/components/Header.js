@@ -17,10 +17,10 @@ class Header extends Component {
               <Link to={'/search'} className="nav-link">Search</Link>
               <Link to={'/'} className="nav-link">Home</Link>
               <Link to={'/add-project'} className="nav-link">Add Project</Link>
+              <Link to={'/login'} className="nav-link">Sign In</Link>
+              <Link to={'/registration'} className="nav-link">Sign Up</Link>
               <Nav.Link href="#link">Buy</Nav.Link>
               <Nav.Link href="#link">Sell</Nav.Link>
-              <Nav.Link href="#link">Log In</Nav.Link>
-              <Nav.Link href="#link">Sign Up</Nav.Link>
               <NavDropdown title="User" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Dashboard</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Profile</NavDropdown.Item>

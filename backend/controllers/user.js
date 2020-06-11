@@ -5,17 +5,17 @@ const User = require('../models/user');
 const secret = 'helloworld';
 
 exports.register = (req,res,next) => {
-    const { email, password } = req.body;
-    const user = new User({ email, password });
+    const { email,name, password } = req.body;
+    const user = new User({ email,name, password });
     user.save(
         function(err){
             if(err){
                 // console.log(err)
-                res.status(500)
-                .send("Error registering new user please try again.");
+                res.status(401)
+                .json("Error registering new user please try again.");
             }
             else{
-                res.status(200).send("Welcome to Project Seller!");
+                res.status(200).json("Welcome to Project Seller!");
             }
         }
     )
@@ -49,12 +49,20 @@ exports.login = (req,res,next) => {
             });
           } else {
             // Issue token
-            const payload = { email };
+            const payload = { 
+              id: user._id,
+              email: email,
+              name : user.name
+             };
             const token = jwt.sign(payload, secret, {
               expiresIn: '1h'
             });
-            res.cookie('token', token, { httpOnly: true })
-              .sendStatus(200);
+            // res.cookie('token', token, { httpOnly: true })
+            //   .sendStatus(200);
+            res.json({
+              success: true,
+              token: token
+            });
           }
         });
       }

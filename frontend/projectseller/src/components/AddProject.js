@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
+import jwt_decode from "jwt-decode";
 
 const TITLE = 'Add Project';
 
@@ -32,7 +33,32 @@ class AddProject extends Component {
     };
     fetch('http://127.0.0.1:8000/add-product', requestOptions)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => console.log(data)); 
+    // const requestOptions = {
+    //   method: 'POST',
+    //   body: JSON.stringify({ email:"p@gmail.com",password:"hello" }),
+    //   headers: {  "Content-Type": "application/json" },
+    // };
+    // fetch('http://127.0.0.1:8000/user/login', requestOptions)
+    // .then(response => response.json())
+    // .then(data => {
+    //   const { token } = data;
+    //   console.log(jwt_decode(token));
+    // }); 
+    // fetch('http://127.0.0.1:8000/checktoken')
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log(data);
+    // }); 
+    // fetch('http://127.0.0.1:8000/user/login', requestOptions)
+    // .then(res => {
+    //   if (res.status === 200) {
+    //     this.props.history.push('/');
+    //   } else {
+    //     console.log(res.error);
+    //   }
+    // })
+    
 
     this.setState({
       title : "",
