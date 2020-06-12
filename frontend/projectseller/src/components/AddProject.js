@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
-import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 const TITLE = 'Add Project';
 
@@ -26,14 +26,31 @@ class AddProject extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    const requestOptions = {
-      method: 'POST',
-      body: JSON.stringify({ title: this.state.title , price : this.state.price , description: this.state.description }),
-      headers: {  "Content-Type": "application/json" },
+    // const data =JSON.stringify({ title: this.state.title , price : this.state.price , description: this.state.description });
+    
+    var postData = {
+      title: this.state.title,
+      price : this.state.price,
+      description: this.state.description
     };
-    fetch('http://127.0.0.1:8000/add-product', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log(data)); 
+    
+    let axiosConfig = {
+      headers: {
+          "Content-Type": "application/json" 
+      }
+    };
+    
+    axios.post('http://127.0.0.1:8000/add-product',postData ,axiosConfig)
+    .then(response => console.log(response))
+    .catch((err) => console.log("AXIOS ERROR: ", err))
+    // const requestOptions = {
+    //   method: 'POST',
+    //   body: JSON.stringify({ title: this.state.title , price : this.state.price , description: this.state.description }),
+    //   headers: {  "Content-Type": "application/json" },
+    // };
+    // fetch('http://127.0.0.1:8000/add-product', requestOptions)
+    // .then(response => response.json())
+    // .then(data => console.log(data)); 
     // const requestOptions = {
     //   method: 'POST',
     //   body: JSON.stringify({ email:"p@gmail.com",password:"hello" }),

@@ -1,13 +1,46 @@
 import React, { Component } from 'react';
 import { Navbar, Nav,NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import AuthService from "../services/auth_service";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import './Header.css';
 
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentUser: undefined
+    };
+  }
+  componentDidMount() {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      this.setState({
+        currentUser: user,
+      });
+    }
+  }
   render() {
+    const isLoggedIn = this.state.currentUser
+    
+    if(isLoggedIn){
+      var toAddProject=<Link to={'/add-project'} className="nav-link">Add Project</Link>;
+      var toTest=<Link to={'/test'} className="nav-link" >Test</Link>;
+      var toLogout=<Link to={'/logout'} className="nav-link">Logout</Link>;
+      var toUser= <NavDropdown title="User" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#action/3.1">Dashboard</NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.2">Profile</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action/3.4">Sign Out</NavDropdown.Item>
+                  </NavDropdown> ;
+    }
+    else{
+      var toSignIn=<Link to={'/login'} className="nav-link">Sign In</Link>;
+      var toSignUp=<Link to={'/register'} className="nav-link">Sign Up</Link>;
+    }
+    
     return (
       <Navbar bg="light" expand="lg">
         <Link to={'/'} className="nav-link">Project Assist</Link>
@@ -16,17 +49,14 @@ class Header extends Component {
             <Nav className="ml-auto">
               <Link to={'/search'} className="nav-link">Search</Link>
               <Link to={'/'} className="nav-link">Home</Link>
-              <Link to={'/add-project'} className="nav-link">Add Project</Link>
-              <Link to={'/login'} className="nav-link">Sign In</Link>
-              <Link to={'/registration'} className="nav-link">Sign Up</Link>
+              {toAddProject}
+              {toTest}
+              {toSignIn}
+              {toSignUp}
+              {toLogout}
               <Nav.Link href="#link">Buy</Nav.Link>
               <Nav.Link href="#link">Sell</Nav.Link>
-              <NavDropdown title="User" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Dashboard</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Profile</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Sign Out</NavDropdown.Item>
-               </NavDropdown>
+              {toUser}
             </Nav> 
           </Navbar.Collapse>
         </Navbar> 

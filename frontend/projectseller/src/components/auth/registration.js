@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
-
+import AuthService from '../../services/auth_service';
 
 const TITLE = 'Sign Up';
 
@@ -26,15 +26,14 @@ class Registration extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    const requestOptions = {
-      method: 'POST',
-      body: JSON.stringify({ email: this.state.email , name : this.state.name , password: this.state.password }),
-      headers: {  "Content-Type": "application/json" },
-    };
-    fetch('http://127.0.0.1:8000/user/register', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log(data)); 
- 
+    AuthService.register(
+      this.state.email,
+      this.state.name,
+      this.state.password
+    ).then(response=>{
+      console.log(response);
+      this.props.history.push('/login');
+    })
     this.setState({
       name : "",
       email : "",

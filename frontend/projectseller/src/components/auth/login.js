@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
-import jwt_decode from "jwt-decode";
 
+import AuthService from '../../services/auth_service';
 const TITLE = 'Sign In';
 
 class Login extends Component {  
@@ -25,21 +25,28 @@ class Login extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    const requestOptions = {
-      method: 'POST',
-      body: JSON.stringify({ email: this.state.email , password: this.state.password }),
-      headers: {  "Content-Type": "application/json" },
-    };
-    fetch('http://127.0.0.1:8000/user/login', requestOptions)
-    .then(response => response.json())
-    .then(data => {
-      if (data.token){
-        console.log(jwt_decode(data.token));
-      }
-      else{
-        console.log(data);
-      }
-    }); 
+
+    AuthService.login(this.state.email, this.state.password)
+    .then(response=>{
+      console.log(response.token);
+      this.props.history.push('/');
+      window.location.reload();
+    })
+    // const requestOptions = {
+    //   method: 'POST',
+    //   body: JSON.stringify({ email: this.state.email , password: this.state.password }),
+    //   headers: {  "Content-Type": "application/json" },
+    // };
+    // fetch('http://127.0.0.1:8000/user/login', requestOptions)
+    // .then(response => response.json())
+    // .then(data => {
+    //   if (data.token){
+    //     console.log(jwt_decode(data.token));
+    //   }
+    //   else{
+    //     console.log(data);
+    //   }
+    // }); 
  
     this.setState({
       email : "",

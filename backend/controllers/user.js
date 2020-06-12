@@ -55,7 +55,7 @@ exports.login = (req,res,next) => {
               name : user.name
              };
             const token = jwt.sign(payload, secret, {
-              expiresIn: '1h'
+              expiresIn: '20s'
             });
             // res.cookie('token', token, { httpOnly: true })
             //   .sendStatus(200);
