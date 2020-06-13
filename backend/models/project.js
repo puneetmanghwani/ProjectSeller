@@ -15,6 +15,16 @@ const projectSchema = new Schema({
         type: String,
         required: true
     },
+    comments:[{
+        name:{
+            type:String,
+            required:true
+        },
+        comment:{
+            type:String,
+            required:true
+        }
+    }]
 })
 
 module.exports = mongoose.model('Project', projectSchema);

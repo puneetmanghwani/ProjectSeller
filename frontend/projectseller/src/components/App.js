@@ -6,6 +6,8 @@ import AddProject from './AddProject';
 import Project from './SingleProject';
 import Registration from './auth/registration';
 import Login from './auth/login';
+import Cart from './user/cart'
+import OrderConfirm from './user/orderconfirm';
 import Header from './Header';
 import Test from './test';
 import { Redirect } from 'react-router-dom'
@@ -50,6 +52,8 @@ class App extends Component {
               <Route path='/login' component={Login} />
               <Route path='/logout' component={Logout} />
               <PrivateRoute path='/test' component={Test} />
+              <PrivateRoute path='/cart' component={Cart} />
+              <PrivateRoute path='/orderplaced' component={OrderConfirm} />
           </Switch>
         </div>
       </Router>

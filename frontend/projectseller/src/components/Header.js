@@ -34,7 +34,9 @@ class Header extends Component {
                     <NavDropdown.Item href="#action/3.2">Profile</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.4">Sign Out</NavDropdown.Item>
-                  </NavDropdown> ;
+                  </NavDropdown> 
+
+      var cart = <Link to={'/cart'} className="nav-link">Cart</Link>;
     }
     else{
       var toSignIn=<Link to={'/login'} className="nav-link">Sign In</Link>;
@@ -50,6 +52,7 @@ class Header extends Component {
               <Link to={'/search'} className="nav-link">Search</Link>
               <Link to={'/'} className="nav-link">Home</Link>
               {toAddProject}
+              {cart}
               {toTest}
               {toSignIn}
               {toSignUp}

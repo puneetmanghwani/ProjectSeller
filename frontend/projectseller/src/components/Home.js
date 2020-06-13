@@ -16,7 +16,7 @@ class Home extends Component {
           <title>{ TITLE }</title>
         </Helmet>
         <p> Profitable side projects to Buy/Sell</p>
-        <p>At Project Assist is a marketplace where one can sell and buy projects.</p>
+        <p>Project Assist is a marketplace where one can sell and buy projects.</p>
         <Link to="/search">
           <Button className="float-right" style={{float: 'right'}} variant="primary" size="lg"> Buy Side Project </Button>
         </Link>
