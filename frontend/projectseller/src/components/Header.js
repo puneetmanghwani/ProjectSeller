@@ -26,7 +26,7 @@ class Header extends Component {
     const isLoggedIn = this.state.currentUser
     
     if(isLoggedIn){
-      var toAddProject=<Link to={'/add-project'} className="nav-link">Add Project</Link>;
+      var toAddProject=<Link to={'/add-project'} className="nav-link">Sell</Link>;
       var toTest=<Link to={'/test'} className="nav-link" >Test</Link>;
       var toLogout=<Link to={'/logout'} className="nav-link">Logout</Link>;
       var toUser= <NavDropdown title="User" id="basic-nav-dropdown">
@@ -57,8 +57,7 @@ class Header extends Component {
               {toSignIn}
               {toSignUp}
               {toLogout}
-              <Nav.Link href="#link">Buy</Nav.Link>
-              <Nav.Link href="#link">Sell</Nav.Link>
+              <Link to={'/projects'} className="nav-link">All Projects</Link>
               {toUser}
             </Nav> 
           </Navbar.Collapse>

@@ -13,6 +13,40 @@ exports.getProjects = (req, res, next) => {
       });
   };
 
+exports.getSearchProjects = (req, res, next) => {
+  var title= req.query.title;
+  var minPrice= req.query.minPrice;
+  var maxPrice= req.query.maxPrice;
+  
+  if(!minPrice){
+    minPrice=0;
+  }
+  if(!maxPrice){
+    maxPrice=999999999;
+  }
+  if(title){
+    Project.find({'title': { $regex: '.*' + title + '.*',$options: 'i' },
+                  'price': { $gte: minPrice, $lte: maxPrice },
+    })
+      .then(projects => {
+        return(res.json(projects));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+    else{
+      Project.find({'price': { $gte: minPrice, $lte: maxPrice }})
+      .then(projects => {
+        return(res.json(projects));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+};
+
+
 exports.getProject = (req, res, next) => {
   const projectId = req.params.projectId;
   
@@ -36,9 +70,10 @@ exports.addComment = (req, res, next) => {
     .then(project => {
         project.comments.push(comment);
         project.save();
+        res.json('commented');
     })
     .catch(err => console.log(err));
-  res.json('commented');
+  
 };
   
 exports.addProjectToCart = (req, res, next) => {
@@ -54,8 +89,11 @@ exports.addProjectToCart = (req, res, next) => {
       }
         User.findById(userId)
         .then(user=>{
-          user.addToCart(cartItem);
-          res.json('added to cart');
+          user.addToCart(cartItem)
+          .then(response=>{
+            res.json('added to cart');
+          })
+          
         })
     })
     .catch(err => console.log(err));
@@ -70,7 +108,27 @@ exports.getCartItems = (req, res, next) => {
   })
   
 };
-
+exports.cartRemoveItem = (req, res, next) => {
+  const itemId= req.body.cartItem;
+  const userId= req.user.id;
+  const action = req.body.action;
+  User.findById(userId)
+  .then(user=>{
+    if(action){
+      user.removeFromCart(itemId,action)
+      .then(response=>{
+        res.json('quantity'+action);
+      })
+      
+    }
+    else{
+      user.removeFromCart(itemId,null)
+      .then(response=>{
+        res.json('item removed');
+      })
+    }
+  })
+};
 exports.postPlaceOrder = (req, res, next) => {
   var orderItems = req.body.orderItems;
   userId=req.user.id

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './Home';
 import SearchProjects from './SearchProjects';
+import AllProjects from './AllProjects';
 import AddProject from './AddProject';
 import Project from './SingleProject';
 import Registration from './auth/registration';
@@ -46,6 +47,7 @@ class App extends Component {
           <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/search' component={SearchProjects} />
+              <Route path='/projects' component={AllProjects} />
               <Route path='/project/:PROJECT' component={Project} />
               <PrivateRoute path='/add-project' component={AddProject} />
               <Route path='/register' component={Registration} />

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom';
-
-
+import axios from "axios";
+import {DebounceInput} from 'react-debounce-input';
 
 const TITLE = 'Search Project';
 
@@ -27,26 +27,56 @@ class SearchProjects extends Component {
  
     this.state = {
       PROJECTS: [],
+      title: undefined,
+      minPrice: undefined,
+      maxPrice: undefined
     };
+   
+    this.searchProjects = this.searchProjects.bind(this);
   }
-  componentDidMount() {
-    this.getProjects();
-  }
-  
-  getProjects() {
-    fetch('http://127.0.0.1:8000/projects')
-    .then(response => response.json())
-    .then(projects => {
-      this.setState({ PROJECTS:projects });
+  searchProjects(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
     });
-  }
+    const data={
+      title: this.state.title,
+      minPrice: this.state.minPrice,
+      maxPrice: this.state.maxPrice
+    }
+
+    axios.get('http://127.0.0.1:8000/search/',{ params:data })
+    .then(PROJECTS => {
+      this.setState({ PROJECTS:PROJECTS.data });
+      
+    })
+}
   render() {
+    
     return (
       <div>
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
-        
+        <div>
+          <p>Search Project</p>
+          <DebounceInput
+            type="text" name="title" id="title" placeholder="Enter Title"
+            minLength={1} debounceTimeout={300}
+            onChange={this.searchProjects} />
+          <br />
+          <br />
+          <p>
+          Enter Price Range
+          <DebounceInput
+            type="number" name="minPrice" id="minPrice" placeholder="Minimum Price"
+            minLength={1} debounceTimeout={300}
+            onChange={this.searchProjects} />
+          <DebounceInput
+            type="number" name="maxPrice" id="maxPrice" placeholder="Maximum Price"
+            minLength={1} debounceTimeout={300}
+            onChange={this.searchProjects} />
+          </p>
+        </div>
         {
           this.state.PROJECTS.map(PROJECT=>{
             return(

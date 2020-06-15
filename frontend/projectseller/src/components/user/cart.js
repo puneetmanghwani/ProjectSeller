@@ -4,6 +4,8 @@ import axios from "axios";
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import authHeader from '../../services/auth_header';
 
 
@@ -22,7 +24,8 @@ class Cart extends Component {
     this.getCart = this.getCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeItem = this.removeItem.bind(this);
-
+    this.itemQuantityDecrease = this.itemQuantityDecrease.bind(this);
+    this.itemQuantityIncrease = this.itemQuantityIncrease.bind(this);
   }
   componentDidMount() {
     this.getCart();
@@ -34,8 +37,29 @@ class Cart extends Component {
     });
   }
   removeItem(event) {
-    console.log(event.currentTarget.getAttribute('value'));
+    const cartItem = event.currentTarget.getAttribute('value');
+    axios.post('http://127.0.0.1:8000/cart/removeitem/',{cartItem},{ headers: authHeader() })
+    .then(response => {
+      console.log(response);
+      this.getCart();
+    });
     
+  }
+  itemQuantityIncrease(event) {
+    const cartItem = event.currentTarget.getAttribute('value');
+    axios.post('http://127.0.0.1:8000/cart/removeitem/',{cartItem ,action:'Increase'},{ headers: authHeader() })
+    .then(response => {
+      console.log(response);
+      this.getCart();
+    });
+  }
+  itemQuantityDecrease(event) {
+    const cartItem = event.currentTarget.getAttribute('value');
+    axios.post('http://127.0.0.1:8000/cart/removeitem/',{cartItem ,action:'Decrease'},{ headers: authHeader() })
+    .then(response => {
+      console.log(response);
+      this.getCart();
+    });
   }
   placeOrder(){
     axios.post('http://127.0.0.1:8000/placeorder/',{orderItems: this.state.cartItems},{ headers: authHeader() })
@@ -77,7 +101,15 @@ class Cart extends Component {
         {
             this.state.cartItems.map(ITEM=>{
               return(
-                <li key={ITEM._id}>{ITEM.title}  :  {ITEM.quantity}    Price --{ITEM.price*ITEM.quantity}  <DeleteForeverOutlinedIcon value={ITEM._id} onClick={this.removeItem} /></li>
+                <div>  
+                <li key={ITEM._id}>
+                <p>Title:    
+                {ITEM.title}     <Link value={ITEM._id} onClick={this.removeItem}><DeleteForeverOutlinedIcon  /></Link> </p>
+                <p>Quantity :     
+                {ITEM.quantity}  <Link value={ITEM._id} onClick={this.itemQuantityIncrease}><ArrowUpwardIcon  /></Link> <Link value={ITEM._id} onClick={this.itemQuantityDecrease}> <ArrowDownwardIcon  /></Link> </p> 
+                <p>Price :  
+                {ITEM.price*ITEM.quantity}  </p></li>
+                </div>
               )
             })
         }

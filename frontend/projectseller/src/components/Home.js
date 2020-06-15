@@ -20,7 +20,10 @@ class Home extends Component {
         <Link to="/search">
           <Button className="float-right" style={{float: 'right'}} variant="primary" size="lg"> Buy Side Project </Button>
         </Link>
+        <Link to="/add-project">
         <Button className="btn" variant="primary" size="lg"> Sell Side Project </Button>
+        </Link>
+        
       </div>
     )
 

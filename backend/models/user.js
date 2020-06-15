@@ -49,7 +49,31 @@ UserSchema.methods.addToCart = function(cartItem) {
   this.cart = updatedCartItems;
   return this.save();
 };
-
+UserSchema.methods.removeFromCart = function(cartItemId,action) {
+    const cartProjectIndex = this.cart.findIndex(cp => {
+      return cp._id.toString() === cartItemId.toString();
+    });
+    const updatedCartItems = [...this.cart];
+    
+    if (action === 'Increase') {
+      newQuantity = this.cart[cartProjectIndex].quantity + 1;
+      updatedCartItems[cartProjectIndex].quantity = newQuantity;
+    }
+    else if (action === 'Decrease') {
+        newQuantity = this.cart[cartProjectIndex].quantity - 1;
+        if (newQuantity>0){
+            updatedCartItems[cartProjectIndex].quantity = newQuantity;
+        }
+        else {
+            updatedCartItems.splice(cartProjectIndex, 1);
+        }
+    }
+    else {
+      updatedCartItems.splice(cartProjectIndex, 1);
+    }
+    this.cart = updatedCartItems;
+    return this.save();
+  };
 UserSchema.pre('save', function(next) {
     if (this.isNew || this.isModified('password')) {
         const document = this;
