@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
-import AuthService from '../../services/auth_service';
+
 
 const TITLE = 'Sign Up';
 
@@ -26,7 +26,7 @@ class Registration extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    AuthService.register(
+    this.props.register(
       this.state.email,
       this.state.name,
       this.state.password

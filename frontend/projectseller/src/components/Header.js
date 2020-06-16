@@ -3,7 +3,7 @@ import { Navbar, Nav,NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AuthService from "../services/auth_service";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Header.css';
+
 
 
 class Header extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
 
-import AuthService from '../../services/auth_service';
+
 const TITLE = 'Sign In';
 
 class Login extends Component {  
@@ -16,7 +16,9 @@ class Login extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
+  
   handleChange(event) {
     const stateToBeChanged = event.target.name;
     const valueToBeChanged = event.target.value;
@@ -25,12 +27,11 @@ class Login extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-
-    AuthService.login(this.state.email, this.state.password)
+    console.log(this.props)
+    this.props.login(this.state.email, this.state.password)
     .then(response=>{
       console.log(response.token);
       this.props.history.push('/');
-      window.location.reload();
     })
     // const requestOptions = {
     //   method: 'POST',
