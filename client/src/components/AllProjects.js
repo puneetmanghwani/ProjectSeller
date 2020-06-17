@@ -36,7 +36,7 @@ class AllProjects extends Component {
   getProjects() {
     axios.get('/projects')
     .then(projects => {
-      this.setState({ PROJECTS:projects });
+      this.setState({ PROJECTS:projects.data });
     });
   }
   render() {
