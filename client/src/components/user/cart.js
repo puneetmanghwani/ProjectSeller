@@ -31,14 +31,14 @@ class Cart extends Component {
     this.getCart();
   }
   getCart() {
-    axios.get('http://127.0.0.1:8000/cart/',{ headers: authHeader() })
+    axios.get('/cart/',{ headers: authHeader() })
     .then(cartItems => {
       this.setState({ cartItems:cartItems.data });
     });
   }
   removeItem(event) {
     const cartItem = event.currentTarget.getAttribute('value');
-    axios.post('http://127.0.0.1:8000/cart/removeitem/',{cartItem},{ headers: authHeader() })
+    axios.post('/cart/removeitem/',{cartItem},{ headers: authHeader() })
     .then(response => {
       console.log(response);
       this.getCart();
@@ -47,7 +47,7 @@ class Cart extends Component {
   }
   itemQuantityIncrease(event) {
     const cartItem = event.currentTarget.getAttribute('value');
-    axios.post('http://127.0.0.1:8000/cart/removeitem/',{cartItem ,action:'Increase'},{ headers: authHeader() })
+    axios.post('/cart/removeitem/',{cartItem ,action:'Increase'},{ headers: authHeader() })
     .then(response => {
       console.log(response);
       this.getCart();
@@ -55,14 +55,14 @@ class Cart extends Component {
   }
   itemQuantityDecrease(event) {
     const cartItem = event.currentTarget.getAttribute('value');
-    axios.post('http://127.0.0.1:8000/cart/removeitem/',{cartItem ,action:'Decrease'},{ headers: authHeader() })
+    axios.post('/cart/removeitem/',{cartItem ,action:'Decrease'},{ headers: authHeader() })
     .then(response => {
       console.log(response);
       this.getCart();
     });
   }
   placeOrder(){
-    axios.post('http://127.0.0.1:8000/placeorder/',{orderItems: this.state.cartItems},{ headers: authHeader() })
+    axios.post('/placeorder/',{orderItems: this.state.cartItems},{ headers: authHeader() })
     .then(response => {
       console.log(response);
       this.props.history.push('/orderplaced');

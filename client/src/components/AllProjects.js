@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom';
-
+import axios from "axios";
 
 
 const TITLE = 'All Projects';
@@ -34,7 +34,7 @@ class AllProjects extends Component {
   }
   
   getProjects() {
-    fetch('/projects')
+    axios.get('/projects')
     .then(response => response.json())
     .then(projects => {
       this.setState({ PROJECTS:projects });

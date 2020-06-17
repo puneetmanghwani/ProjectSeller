@@ -48,7 +48,7 @@ class Project extends Component {
     const PROJECT=this.props.match.params.PROJECT.split('-');
     const projectId= PROJECT[PROJECT.length-1];
     
-    axios.get('http://127.0.0.1:8000/project/'+projectId)
+    axios.get('/project/'+projectId)
     
     .then(PROJECT => {
       
@@ -68,7 +68,7 @@ class Project extends Component {
       userId:this.state.currentUser.id,
       projectId:projectId
     };
-    axios.post('http://127.0.0.1:8000/project/addtocart',postData,{ headers: authHeader() })
+    axios.post('/addtocart',postData,{ headers: authHeader() })
     .then(response =>console.log(response))
   }
   postComment(){
@@ -78,7 +78,7 @@ class Project extends Component {
       name:this.state.currentUser.name,
       comment: this.state.comment,
     };
-    axios.post('http://127.0.0.1:8000/project/'+projectId+'/addcomment',postData,{ headers: authHeader() })
+    axios.post('/project/'+projectId+'/addcomment',postData,{ headers: authHeader() })
     .then(response =>{
       console.log(response);
       this.getProductData();

@@ -77,7 +77,7 @@ class App extends Component {
       authLoading: true
     });  
     return axios
-    .post('/login',{
+    .post('/user/login',{
         email,
         password
     })
@@ -97,7 +97,7 @@ register=(email, name, password)=> {
   this.setState({
     authLoading: true
   });
-    return axios.post(API_URL + "register", {
+    return axios.post("/user/register", {
       email,
       name,
       password
