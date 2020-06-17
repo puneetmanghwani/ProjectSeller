@@ -3,7 +3,21 @@ import { Helmet } from 'react-helmet'
 import { Button } from 'react-bootstrap';
 
 const TITLE = 'Sign In';
+const validEmailRegex = 
+//eslint-disable-next-line
+  RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 
+const validateForm = (errors,email,password) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    // if we have an error string set valid to false
+    (val) => val.length > 0 && (valid = false)
+  );
+  if(!email.length>0 || !password.length>0){
+    valid=false
+  }
+  return valid;
+}
 class Login extends Component {  
   constructor(props) {
     super(props);
@@ -12,6 +26,9 @@ class Login extends Component {
       
       email : "",
       password: "",
+      errors: {
+        email: '',
+      }
       
     };
     this.handleChange = this.handleChange.bind(this);
@@ -22,12 +39,25 @@ class Login extends Component {
   handleChange(event) {
     const stateToBeChanged = event.target.name;
     const valueToBeChanged = event.target.value;
-    
-    this.setState({ [stateToBeChanged] : valueToBeChanged });
+    let errors = this.state.errors;
+    switch (stateToBeChanged) {
+
+      case 'email': 
+        errors.email = 
+          validEmailRegex.test(valueToBeChanged)
+            ? ''
+            : 'Email is not valid!';
+        break;
+      default:
+        break;
+    }
+    this.setState({ errors ,[stateToBeChanged] : valueToBeChanged });
   }
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.props)
+    if(!validateForm(this.state.errors,this.state.email,this.state.password)) {
+      return ;
+    }
     this.props.login(this.state.email, this.state.password)
     .then(response=>{
       console.log(response.token);
@@ -55,6 +85,7 @@ class Login extends Component {
     });
   }
   render() {
+    const {errors} = this.state;
     return (
       <div>
         <Helmet>
@@ -65,6 +96,8 @@ class Login extends Component {
             Email Address:
             <input name="email" id="email" type="email" onChange={this.handleChange} value={this.state.email} />
           </label>
+          {errors.email.length > 0 && 
+            <span className='error'>{errors.email}</span>}
           <label>
             Password:
             <input name="password" id="password" type="password" onChange={this.handleChange} value={this.state.password} />

@@ -25,7 +25,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
      
   )} />
 )
-const API_URL = "http://localhost:8000/user/";
+
 class App extends Component {
   
   constructor(props) {
@@ -77,7 +77,7 @@ class App extends Component {
       authLoading: true
     });  
     return axios
-    .post('/user/login',{
+    .post('http://localhost:8000/user/login',{
         email,
         password
     })
@@ -97,7 +97,7 @@ register=(email, name, password)=> {
   this.setState({
     authLoading: true
   });
-    return axios.post("/user/register", {
+    return axios.post("http://localhost:8000/user/register", {
       email,
       name,
       password
