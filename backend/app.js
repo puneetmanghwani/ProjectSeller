@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors')
 
 const app = express();
-
+app.use(express.static('../frontend/projectseller/build'));
 app.use(cors())
 
 const shopRoutes = require('./routes/shop');
@@ -25,6 +25,9 @@ app.use('/user', userRoutes);
 app.get('/checktoken', withAuth, function(req, res) {
   res.json("hello");
 })
+app.use(function(req, res) {
+	res.sendFile(path.join(__dirname, '../frontend/projectseller/build/index.html'));
+});
 
 
 mongoose

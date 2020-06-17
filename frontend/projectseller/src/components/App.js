@@ -15,12 +15,6 @@ import Cart from './user/cart'
 import OrderConfirm from './user/orderconfirm';
 import Test from './test';
 import jwt_decode from "jwt-decode";
-import AuthService from '../services/auth_service';
-
-const check=(test)=>{
-  // console.log(test[0].logout);
-  console.log(test);
-}
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
@@ -37,7 +31,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: undefined
+      currentUser: undefined,
+      authLoading: false
     };
   }
    componentDidMount() {
@@ -78,6 +73,9 @@ class App extends Component {
     
   }
   login=(email,password)=>{
+    this.setState({
+      authLoading: true
+    });  
     return axios
     .post(API_URL+'login',{
         email,
@@ -88,19 +86,27 @@ class App extends Component {
             localStorage.setItem("user", JSON.stringify(jwt_decode(response.data.token)));
             localStorage.setItem("token", JSON.stringify(response.data.token));
             this.setState({
-              currentUser: JSON.stringify(jwt_decode(response.data.token))
+              currentUser: JSON.stringify(jwt_decode(response.data.token)),
+              authLoading: false
             });  
         }
         return response.data;
     });
 }
 register=(email, name, password)=> {
-    console.log(API_URL+"register");
+  this.setState({
+    authLoading: true
+  });
     return axios.post(API_URL + "register", {
       email,
       name,
       password
-    });
+    })
+    .then(response=>{
+      this.setState({
+        authLoading: false
+      });
+    })
 }
 
 getCurrentUser=()=> {
@@ -153,8 +159,8 @@ getCurrentUser=()=> {
               <Route path='/projects' component={AllProjects} />
               <Route path='/project/:PROJECT' component={Project} />
               <PrivateRoute path='/add-project' component={AddProject} logout={this.logoutHandler} />
-              <Route path='/register' component={(props) => (<Registration login={this.register} {...props} />)}  />
-              <Route path='/login' component={(props) => (<Login login={this.login} {...props} />)} />
+              <Route path='/register' component={(props) => (<Registration register={this.register} loading={this.state.authLoading}  {...props} />)}  />
+              <Route path='/login' component={(props) => (<Login login={this.login} loading={this.state.authLoading} {...props} />)} />
               <PrivateRoute path='/test' component={Test} logout={this.logoutHandler} />
               <PrivateRoute path='/cart' component={Cart} logout={this.logoutHandler} />
               <PrivateRoute path='/orderplaced' component={OrderConfirm} logout={this.logoutHandler} />

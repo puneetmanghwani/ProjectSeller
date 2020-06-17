@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
-
+import { Button } from 'react-bootstrap';
 
 const TITLE = 'Sign In';
 
@@ -69,7 +69,9 @@ class Login extends Component {
             Password:
             <input name="password" id="password" type="password" onChange={this.handleChange} value={this.state.password} />
           </label>
-        <input type="submit" value="Submit" />
+          <Button design="raised" type="submit" disabled={this.props.loading}>
+            {this.props.loading ? 'Signing In...' : 'Sign In'}
+          </Button>
         </form>  
       </div>
     )
