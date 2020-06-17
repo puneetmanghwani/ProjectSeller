@@ -35,7 +35,7 @@ mongoose
     'mongodb+srv://puneet:puneet@cluster0-adp1h.mongodb.net/<dbname>?retryWrites=true&w=majority',{useNewUrlParser: true,useUnifiedTopology: true}
   )
   .then(result => {
-    app.listen(8000);
+    app.listen(process.env.PORT || 8000);
   })
   .catch(err => {
     console.log(err);
