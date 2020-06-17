@@ -35,7 +35,6 @@ class AllProjects extends Component {
   
   getProjects() {
     axios.get('/projects')
-    .then(response => response.json())
     .then(projects => {
       this.setState({ PROJECTS:projects });
     });
