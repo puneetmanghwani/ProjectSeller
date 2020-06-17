@@ -34,7 +34,7 @@ class AllProjects extends Component {
   }
   
   getProjects() {
-    fetch('http://127.0.0.1:8000/projects')
+    fetch('/projects')
     .then(response => response.json())
     .then(projects => {
       this.setState({ PROJECTS:projects });

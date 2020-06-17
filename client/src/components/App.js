@@ -77,7 +77,7 @@ class App extends Component {
       authLoading: true
     });  
     return axios
-    .post(API_URL+'login',{
+    .post('/login',{
         email,
         password
     })
