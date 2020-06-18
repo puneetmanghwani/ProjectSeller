@@ -93,21 +93,37 @@ class App extends Component {
         return response.data;
     });
 }
-register=(email, name, password)=> {
+register=(formData)=> {
   this.setState({
     authLoading: true
   });
-    return axios.post("http://localhost:8000/user/register", {
-      email,
-      name,
-      password
-    })
+  console.log(formData.get('email'));
+  const headers = {
+    "Content-Type": "multipart/form-data"
+  };
+    return axios.post("http://localhost:8000/user/register", formData)
     .then(response=>{
       this.setState({
         authLoading: false
       });
     })
 }
+// register=(email, name, password,profileImage)=> {
+//   this.setState({
+//     authLoading: true
+//   });
+//     return axios.post("http://localhost:8000/user/register", {
+//       email,
+//       name,
+//       password,
+//       profileImage
+//     })
+//     .then(response=>{
+//       this.setState({
+//         authLoading: false
+//       });
+//     })
+// }
 
 getCurrentUser=()=> {
     return JSON.parse(localStorage.getItem('user'));;

@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
+const multer = require('multer');
 
 const app = express();
 app.use(express.static('client/build'));
@@ -16,6 +17,9 @@ const withAuth = require('./middleware');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
+const upload = multer();
+// app.use(upload.single('profileImage'))
+
 app.use(cookieParser());
 
 

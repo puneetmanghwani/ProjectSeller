@@ -28,6 +28,7 @@ class Registration extends Component {
       name : "",
       email : "",
       password: "",
+      profileImage:undefined,
       errors: {
         name: '',
         email: '',
@@ -41,7 +42,14 @@ class Registration extends Component {
   handleChange(event) {
     const stateToBeChanged = event.target.name;
     const valueToBeChanged = event.target.value;
-    
+
+    if(event.target.files){
+      this.setState({
+        profileImage: event.target.files[0],
+      })
+    }
+
+
     let errors = this.state.errors;
     switch (stateToBeChanged) {
       case 'name': 
@@ -70,19 +78,30 @@ class Registration extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-
+    
     if(!validateForm(this.state.errors,this.state.name,this.state.email,this.state.password)) {
         return ;
     }
+    const form = new FormData();
     
-    this.props.register(
-      this.state.email,
-      this.state.name,
-      this.state.password
-    ).then(response=>{
+    form.append("email", this.state.email);
+    form.append("name", this.state.name);
+    form.append("password",this.state.password);
+    form.append("file",this.state.profileImage)
+    this.props.register(form)
+    .then(response=>{
       console.log(response);
       this.props.history.push('/login');
     })
+    // this.props.register(
+    //   this.state.email,
+    //   this.state.name,
+    //   this.state.password,
+    //   this.state.profileImage
+    // ).then(response=>{
+    //   console.log(response);
+    //   this.props.history.push('/login');
+    // })
     this.setState({
       name : "",
       email : "",
@@ -117,7 +136,10 @@ class Registration extends Component {
           </label>
           {errors.password.length > 0 && 
             <span className='error'>{errors.password}</span>}
-
+          <label>
+            Profile Image:
+            <input name="profileImage" id="profileImage" type="file" onChange={this.handleChange}></input>
+          </label>
           <Button design="raised" type="submit" disabled={this.props.loading}>
             {this.props.loading ? 'Signing Up' : 'Sign Up'}
           </Button>

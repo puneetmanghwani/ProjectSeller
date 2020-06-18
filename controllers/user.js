@@ -1,11 +1,29 @@
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 
 const User = require('../models/user');
 
 const secret = 'helloworld';
 
+
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//       cb(null, '../models/profileImages/');
+//   },
+//   filename: function (req, file, cb) {
+//       cb(null, Date.now() + file.originalname);
+//   }
+// });
+// const upload = multer({
+//   storage: storage,
+// });
+
 exports.register = (req,res,next) => {
     const { email,name, password } = req.body;
+    console.log(req.body);
+    console.log(req.file);
+    // console.log(req);
     const user = new User({ email,name, password });
     user.save(
         function(err){

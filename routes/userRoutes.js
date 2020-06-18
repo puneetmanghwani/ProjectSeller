@@ -8,8 +8,9 @@ const userController = require('../controllers/user');
 
 const withAuth = require('../middleware');
 
-
-router.post('/register', userController.register);
+const multer = require('multer');
+const upload = multer();
+router.post('/register',upload.fields(['image']), userController.register);
 router.post('/login', userController.login);
 
 
