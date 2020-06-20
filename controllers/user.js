@@ -7,28 +7,20 @@ const secret = 'helloworld';
 
 
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//       cb(null, '../models/profileImages/');
-//   },
-//   filename: function (req, file, cb) {
-//       cb(null, Date.now() + file.originalname);
-//   }
-// });
-// const upload = multer({
-//   storage: storage,
-// });
-
 exports.register = (req,res,next) => {
     const { email,name, password } = req.body;
-    console.log(req.body);
-    console.log(req.file);
-    // console.log(req);
-    const user = new User({ email,name, password });
+    var user;
+    if(req.file){
+      const profileImage = req.file.path;
+      user = new User({ email,name, password,profileImage });
+    }
+    else{
+      user = new User({ email,name, password });
+    }
+    
     user.save(
         function(err){
             if(err){
-                // console.log(err)
                 res.status(401)
                 .json("Error registering new user please try again.");
             }
@@ -49,7 +41,7 @@ exports.login = (req,res,next) => {
           error: 'Internal error please try again'
         });
       } else if (!user) {
-        res.status(401)
+        res
           .json({
             error: 'Incorrect email or password'
           });
@@ -61,7 +53,7 @@ exports.login = (req,res,next) => {
                 error: 'Internal error please try again'
             });
           } else if (!same) {
-            res.status(401)
+            res
               .json({
                 error: 'Incorrect email or password'
             });
@@ -85,4 +77,11 @@ exports.login = (req,res,next) => {
         });
       }
     });
+}
+exports.userDetails = (req,res,next) => {
+  userId=req.user.id
+  User.findById(userId)
+  .then(user=>{
+    res.json(user);
+  })
 }

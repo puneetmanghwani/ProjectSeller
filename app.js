@@ -18,11 +18,11 @@ const withAuth = require('./middleware');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 const upload = multer();
-// app.use(upload.single('profileImage'))
+
 
 app.use(cookieParser());
 
-
+app.use("/profile", express.static("models/profileImages"));
 app.use(shopRoutes);
 app.use(sellerRoutes);
 app.use('/user', userRoutes);

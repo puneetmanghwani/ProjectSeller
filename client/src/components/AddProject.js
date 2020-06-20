@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
 import axios from "axios";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './AddProject.css';
 const TITLE = 'Add Project';
 
 class AddProject extends Component {  
@@ -17,6 +19,9 @@ class AddProject extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidMount() {
+    document.body.className="addProjectBody"
   }
   handleChange(event) {
     const stateToBeChanged = event.target.name;
@@ -40,7 +45,7 @@ class AddProject extends Component {
       }
     };
     
-    axios.post('/add-product',postData ,axiosConfig)
+    axios.post('http://127.0.0.1:8000/add-product',postData ,axiosConfig)
     .then(response => console.log(response))
     .catch((err) => console.log("AXIOS ERROR: ", err))
     // const requestOptions = {
@@ -89,20 +94,33 @@ class AddProject extends Component {
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
-        <form onSubmit={this.handleSubmit}>
-          <label>
+        <div className="add"><h3>Add Project</h3></div>
+        <form onSubmit={this.handleSubmit} className="loginform">
+        <div className="form-group">
+          <label>Title</label>
+          <input className="form-control " placeholder="Enter Title" name="title" id="title" type="text" onChange={this.handleChange} value={this.state.title} />
+        </div>
+          {/* <label>
             Title:
-            <input name="title" id="title" type="text" onChange={this.handleChange} value={this.state.title} />
-          </label>
-          <label>
+            <input className="form-control " placeholder="Enter Title" name="title" id="title" type="text" onChange={this.handleChange} value={this.state.title} />
+          </label> */}
+        <div className="form-group">
+          <label>Price</label>
+          <input className="form-control " placeholder="Enter Price" name="price" id="price" type="number" step="0.01" onChange={this.handleChange} value={this.state.price} />
+        </div>
+          {/* <label>
             Price:
-            <input name="price" id="price" type="number" step="0.01" onChange={this.handleChange} value={this.state.price} />
-          </label>
-          <label>
+            <input className="form-control " placeholder="Enter Price" name="price" id="price" type="number" step="0.01" onChange={this.handleChange} value={this.state.price} />
+          </label> */}
+        <div className="form-group">
+          <label>Description</label>
+          <textarea className="form-control " placeholder="Enter Description" name="description" id="description" rows="5" onChange={this.handleChange} value={this.state.description} ></textarea>
+        </div>
+          {/* <label>
             Description:
-            <textarea name="description" id="description" rows="5" onChange={this.handleChange} value={this.state.description} ></textarea>
-          </label>
-        <input type="submit" value="Submit" />
+            <textarea className="form-control " placeholder="Enter Description" name="description" id="description" rows="5" onChange={this.handleChange} value={this.state.description} ></textarea>
+          </label> */}
+          <button type="submit" className="btn btn-primary btn-block">Add</button>
         </form>  
       </div>
     )

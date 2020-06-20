@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true },
     profileImage:{
         type:String,
-        default:"none",
+        default:"models\\profileImages\\default.png",
         required:true
     },
     cart:[{

@@ -13,8 +13,11 @@ import Registration from './auth/registration';
 import Login from './auth/login';
 import Cart from './user/cart'
 import OrderConfirm from './user/orderconfirm';
+import Dashboard from './user/dashboard';
 import Test from './test';
 import jwt_decode from "jwt-decode";
+// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import './App.css'; 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
@@ -25,7 +28,24 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
      
   )} />
 )
-
+var style = {
+  backgroundColor: "#F8F8F8",
+  borderTop: "1px solid #E7E7E7",
+  textAlign: "center",
+  padding: "20px",
+  position: "fixed",
+  left: "0",
+  bottom: "0",
+  height: "60px",
+  width: "100%",
+  
+}
+var phantom = {
+  display: 'block',
+  padding: '20px',
+  height: '60px',
+  width: '100%',
+}
 class App extends Component {
   
   constructor(props) {
@@ -77,6 +97,7 @@ class App extends Component {
       authLoading: true
     });  
     return axios
+    // axios
     .post('http://localhost:8000/user/login',{
         email,
         password
@@ -89,41 +110,31 @@ class App extends Component {
               currentUser: JSON.stringify(jwt_decode(response.data.token)),
               authLoading: false
             });  
+            // this.props.history.push('/');
+            return response;
         }
-        return response.data;
+        else{
+          this.setState({
+            authLoading: false
+          });
+          // throw new Error('Could not authenticate you!');
+          return response;
+        }
+        
     });
 }
 register=(formData)=> {
   this.setState({
     authLoading: true
   });
-  console.log(formData.get('email'));
-  const headers = {
-    "Content-Type": "multipart/form-data"
-  };
-    return axios.post("http://localhost:8000/user/register", formData)
+    return axios.post("http://localhost:8000/user/register", formData,{ headers: { "Content-Type": "multipart/form-data" } })
     .then(response=>{
       this.setState({
         authLoading: false
       });
+      return response.data;
     })
 }
-// register=(email, name, password,profileImage)=> {
-//   this.setState({
-//     authLoading: true
-//   });
-//     return axios.post("http://localhost:8000/user/register", {
-//       email,
-//       name,
-//       password,
-//       profileImage
-//     })
-//     .then(response=>{
-//       this.setState({
-//         authLoading: false
-//       });
-//     })
-// }
 
 getCurrentUser=()=> {
     return JSON.parse(localStorage.getItem('user'));;
@@ -136,10 +147,10 @@ getCurrentUser=()=> {
       var toTest=<Link to={'/test'} className="nav-link" >Test</Link>;
       var toLogout=<Link to={'/login'} className="nav-link" onClick={this.logoutHandler}>Logout</Link>;
       var toUser= <NavDropdown title="User" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Dashboard</NavDropdown.Item>
+                    <Link to={'/dashboard'} className="nav-link" ><NavDropdown.Item href="#action/3.1">Dashboard</NavDropdown.Item></Link>
                     <NavDropdown.Item href="#action/3.2">Profile</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Sign Out</NavDropdown.Item>
+                    <Link to={'/login'} className="nav-link" onClick={this.logoutHandler}><NavDropdown.Item href="#action/3.4">Sign Out</NavDropdown.Item></Link>
                   </NavDropdown> 
 
       var cart = <Link to={'/cart'} className="nav-link">Cart</Link>;
@@ -180,7 +191,13 @@ getCurrentUser=()=> {
               <PrivateRoute path='/test' component={Test} logout={this.logoutHandler} />
               <PrivateRoute path='/cart' component={Cart} logout={this.logoutHandler} />
               <PrivateRoute path='/orderplaced' component={OrderConfirm} logout={this.logoutHandler} />
+              <PrivateRoute path='/dashboard' component={Dashboard} logout={this.logoutHandler} />
           </Switch>
+          <div className="phantom"/>
+            <div className="footer" style={style}>
+                Privacy Policy 
+                About Us
+            </div>
         </div>
       </Router>
     );

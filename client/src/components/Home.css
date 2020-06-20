@@ -1,7 +1,28 @@
-.main {
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+.homebody {
+  background-color: #2a90ca;
+}
+.homehead {
     background-color: #2a90ca;
     color: white;
-    padding: 40px;
-    font-family: Arial;
+    padding: 50px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 200%;
+    margin-top: 100px;
+    margin-left: 50px;
   }
+
+.homemid {
+  background-color: #2a90ca;
+  color: white;
+  padding: 60px;
+  font-family: Arial;
+  
+}
+.homebtn {
+  margin-left: 280px;
+  margin-right: 5px;
+  text-align: center;
+}
+
 

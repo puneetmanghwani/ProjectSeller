@@ -1,0 +1,30 @@
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  float: right;
+  margin-top: 7px;
+}
+
+.form-group input {
+  height: 30px;
+  width: 100%;
+}
+nav.nav.nav-tabs {
+  margin-bottom: 20px;
+}
+input.form-check-input {
+  height: 15px;
+  width: 15px;
+  
+}
+
+label.form-check-label {
+  font-size: 10px;
+  float:left;
+}
+
+button.btn.btn-primary {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

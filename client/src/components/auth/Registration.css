@@ -1,0 +1,19 @@
+ 
+.registrationbody {
+    background-color: #fcfcfc;
+    /* text-align: center; */
+    
+  }
+
+.registrationform {
+    width: 45%;
+    margin: auto;
+    margin-top: 70px;  
+}
+.error-message {
+  color: #cc0033;
+  display: inline-block;
+  font-size: 15px;
+  line-height: 10px;
+  margin: 0px 0 20px;
+}
