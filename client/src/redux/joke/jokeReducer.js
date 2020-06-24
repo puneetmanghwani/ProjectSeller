@@ -1,45 +1,36 @@
-import { GENERATE_JOKE } from './jokeTypes'
-import axios from "axios";
-
-// function jokeGenerator(){
-//   console.log('hello');
-//     axios.get('https://official-joke-api.appspot.com/random_joke')
-//     .then(joke => {
-//       return joke.data;
-//     });
-// }
-const jokeGenerator=()=>{
-  return axios.get('https://official-joke-api.appspot.com/random_joke')
-    .then(joke => {
-      return joke.data;
-    });
-}
-
-
+import {
+  FETCH_JOKE_REQUEST,
+  FETCH_JOKE_SUCCESS,
+  FETCH_JOKE_FAILURE
+} from './jokeTypes'
 
 const initialState = {
-    setup:"Why do trees seem suspicious on sunny days?",
-    punchline:"Dunno, they're just a bit shady."
+  loading: false,
+  joke: {},
+  error: ''
 }
 
 const jokeReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case GENERATE_JOKE: 
-      jokeGenerator()
-      .then(jokeData=>{
-        // console.log(state)
-        // state.setup = jokeData.setup;
-        // state.punchline = jokeData.punchline;
-        return {
-            ...state,
-            setup:jokeData.setup,
-            // punchline:jokeData.punchline
-        }
-      })
-      default: return state
-    }
+  switch (action.type) {
+    case FETCH_JOKE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case FETCH_JOKE_SUCCESS:
+      return {
+        loading: false,
+        joke: action.payload,
+        error: ''
+      }
+    case FETCH_JOKE_FAILURE:
+      return {
+        loading: false,
+        joke: {},
+        error: action.payload
+      }
+    default: return state
   }
-  
-  export default jokeReducer
+}
 
-
+export default jokeReducer

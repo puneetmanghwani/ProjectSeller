@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import { Button } from 'react-bootstrap';
 import axios from "axios";
 import { connect } from 'react-redux'
-import  {generateJoke} from '../../redux/joke/jokeActions'
+import {fetchJoke} from '../../redux/joke/jokeActions';
 import authHeader from '../../services/auth_header';
 import './Dashboard.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,7 +22,8 @@ class Dashboard extends Component {
   
 
   componentDidMount() {
-    document.body.className="dashboardBody"
+    document.body.className="dashboardBody";
+    this.props.fetchJoke();
     this.getUserDetails();
   }
   getUserDetails=()=>{
@@ -57,11 +58,14 @@ class Dashboard extends Component {
        <div className="profileImage"><img src={'http://localhost:8000/profile/'+this.state.userImage} alt="User" /></div>
        <div className="joke">
          <h3>Joke</h3> <br /> 
-        Ques. &nbsp; {this.props.setup}<br/>
-        Ans. &nbsp;  {this.props.punchline}
+        {this.props.jokeData.loading ?<div>Loading  ..............</div> : 
+                                      <div>Ques. &nbsp; {this.props.jokeData.joke.setup}<br/>
+                                          Ans. &nbsp;  {this.props.jokeData.joke.punchline}
+                                      </div>}
+        
         <br />
         <br />
-        <Button onClick={() => this.props.jokeGenerate()}>New Joke</Button>
+        <Button onClick={() => this.props.fetchJoke()}>New Joke</Button>
        </div>
       </div>
     )
@@ -69,15 +73,14 @@ class Dashboard extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log('hey')
   return {
-    setup: state.setup,
-    punchline: state.punchline
+    jokeData: state
   }
 }
+
 const mapDispatchToProps = dispatch => {
   return {
-    jokeGenerate: () => dispatch(generateJoke())
+    fetchJoke: () => dispatch(fetchJoke())
   }
 }
 
