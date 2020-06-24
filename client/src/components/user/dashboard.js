@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
+import { Button } from 'react-bootstrap';
 import axios from "axios";
+import { connect } from 'react-redux'
+import  {generateJoke} from '../../redux/joke/jokeActions'
 import authHeader from '../../services/auth_header';
+import './Dashboard.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TITLE = 'Dashboard';
 
@@ -17,6 +22,7 @@ class Dashboard extends Component {
   
 
   componentDidMount() {
+    document.body.className="dashboardBody"
     this.getUserDetails();
   }
   getUserDetails=()=>{
@@ -41,14 +47,41 @@ class Dashboard extends Component {
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
-       Dashboard  
-       {this.state.name}
-       {this.state.email}
-       <img src={'http://localhost:8000/profile/'+this.state.userImage} alt="User" /> 
+       <div className="head">
+       <h2>Dashboard</h2>  
+       </div>
+       <div className="profileData">
+       Name : &nbsp; &nbsp; {this.state.name} <br />
+       Email : &nbsp; &nbsp; {this.state.email}
+       </div>
+       <div className="profileImage"><img src={'http://localhost:8000/profile/'+this.state.userImage} alt="User" /></div>
+       <div className="joke">
+         <h3>Joke</h3> <br /> 
+        Ques. &nbsp; {this.props.setup}<br/>
+        Ans. &nbsp;  {this.props.punchline}
+        <br />
+        <br />
+        <Button onClick={() => this.props.jokeGenerate()}>New Joke</Button>
+       </div>
       </div>
     )
 
   }
 }
+const mapStateToProps = state => {
+  console.log('hey')
+  return {
+    setup: state.setup,
+    punchline: state.punchline
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    jokeGenerate: () => dispatch(generateJoke())
+  }
+}
 
-export default Dashboard;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(Dashboard);

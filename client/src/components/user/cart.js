@@ -7,7 +7,8 @@ import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import authHeader from '../../services/auth_header';
-
+import './Cart.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const TITLE = 'Cart';
@@ -28,17 +29,18 @@ class Cart extends Component {
     this.itemQuantityIncrease = this.itemQuantityIncrease.bind(this);
   }
   componentDidMount() {
+    document.body.className="cartBody"
     this.getCart();
   }
   getCart() {
-    axios.get('/cart/',{ headers: authHeader() })
+    axios.get('http://127.0.0.1:8000/cart/',{ headers: authHeader() })
     .then(cartItems => {
       this.setState({ cartItems:cartItems.data });
     });
   }
   removeItem(event) {
     const cartItem = event.currentTarget.getAttribute('value');
-    axios.post('/cart/removeitem/',{cartItem},{ headers: authHeader() })
+    axios.post('http://127.0.0.1:8000/cart/removeitem/',{cartItem},{ headers: authHeader() })
     .then(response => {
       console.log(response);
       this.getCart();
@@ -47,7 +49,7 @@ class Cart extends Component {
   }
   itemQuantityIncrease(event) {
     const cartItem = event.currentTarget.getAttribute('value');
-    axios.post('/cart/removeitem/',{cartItem ,action:'Increase'},{ headers: authHeader() })
+    axios.post('http://127.0.0.1:8000/cart/removeitem/',{cartItem ,action:'Increase'},{ headers: authHeader() })
     .then(response => {
       console.log(response);
       this.getCart();
@@ -55,14 +57,14 @@ class Cart extends Component {
   }
   itemQuantityDecrease(event) {
     const cartItem = event.currentTarget.getAttribute('value');
-    axios.post('/cart/removeitem/',{cartItem ,action:'Decrease'},{ headers: authHeader() })
+    axios.post('http://127.0.0.1:8000/cart/removeitem/',{cartItem ,action:'Decrease'},{ headers: authHeader() })
     .then(response => {
       console.log(response);
       this.getCart();
     });
   }
   placeOrder(){
-    axios.post('/placeorder/',{orderItems: this.state.cartItems},{ headers: authHeader() })
+    axios.post('http://127.0.0.1:8000/placeorder/',{orderItems: this.state.cartItems},{ headers: authHeader() })
     .then(response => {
       console.log(response);
       this.props.history.push('/orderplaced');
@@ -71,7 +73,9 @@ class Cart extends Component {
   render() {
     var isCartItems = this.state.cartItems;
     var placeOrder;
+    var cart;
     if(isCartItems.length > 0){
+      cart = <div className="cart"><h2>Cart Items</h2> </div>
       placeOrder=<div>
         <div style={{display: 'flex', justifyContent: 'center'}}>
         Final Price:
@@ -85,10 +89,13 @@ class Cart extends Component {
       </div>
     }
     else{
-      placeOrder=<div>
+      placeOrder=<div className="addCartProject">
         <h2>Please Add Some Projects in Cart</h2>
         <Link to="/search">
           <Button  variant="primary" size="lg"> Search the Projects </Button>
+        </Link> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <Link to="/projects">
+          <Button  variant="primary" size="lg"> All Projects </Button>
         </Link>
       </div>
     }
@@ -97,24 +104,26 @@ class Cart extends Component {
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
-        
+        {cart}
+        <div className="cartItems">
         {
             this.state.cartItems.map(ITEM=>{
               return(
                 <div>  
-                <li key={ITEM._id}>
-                <p>Title:    
-                {ITEM.title}     <Link value={ITEM._id} onClick={this.removeItem}><DeleteForeverOutlinedIcon  /></Link> </p>
-                <p>Quantity :     
-                {ITEM.quantity}  <Link value={ITEM._id} onClick={this.itemQuantityIncrease}><ArrowUpwardIcon  /></Link> <Link value={ITEM._id} onClick={this.itemQuantityDecrease}> <ArrowDownwardIcon  /></Link> </p> 
-                <p>Price :  
-                {ITEM.price*ITEM.quantity}  </p></li>
+                <p>Title: &nbsp; &nbsp;      
+                <Link to={'/project/'+ITEM.title+'-'+ITEM.projectId} >{ITEM.title}</Link> &nbsp; &nbsp; <Link value={ITEM._id} onClick={this.removeItem}><DeleteForeverOutlinedIcon  /></Link></p>
+                <p>Quantity : &nbsp; &nbsp;       
+                {ITEM.quantity} &nbsp; &nbsp; <Link value={ITEM._id} onClick={this.itemQuantityIncrease}><ArrowUpwardIcon  /></Link> <Link value={ITEM._id} onClick={this.itemQuantityDecrease}> <ArrowDownwardIcon  /></Link> </p> 
+                <p>Total Price : &nbsp; &nbsp;    
+                {ITEM.price*ITEM.quantity} &nbsp; &nbsp; </p>
+                <br />
+                <br />
                 </div>
               )
             })
         }
+        </div>
         {placeOrder}
-        
       </div>
     )
 

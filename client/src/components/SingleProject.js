@@ -4,7 +4,8 @@ import { Button } from 'react-bootstrap';
 import AuthService from "../services/auth_service";
 import authHeader from '../services/auth_header';
 import axios from "axios";
-
+import './SingleProject.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Comment = props => {
   
@@ -34,6 +35,7 @@ class Project extends Component {
     this.getProductData = this.getProductData.bind(this);
   }
   componentDidMount() {
+    document.body.className="singleProjectBody"
     const user = AuthService.getCurrentUser();
 
     if (user) {
@@ -48,7 +50,7 @@ class Project extends Component {
     const PROJECT=this.props.match.params.PROJECT.split('-');
     const projectId= PROJECT[PROJECT.length-1];
     
-    axios.get('/project/'+projectId)
+    axios.get('http://127.0.0.1:8000/project/'+projectId)
     
     .then(PROJECT => {
       
@@ -68,7 +70,7 @@ class Project extends Component {
       userId:this.state.currentUser.id,
       projectId:projectId
     };
-    axios.post('/addtocart',postData,{ headers: authHeader() })
+    axios.post('http://127.0.0.1:8000/project/addtocart',postData,{ headers: authHeader() })
     .then(response =>console.log(response))
   }
   postComment(){
@@ -78,7 +80,7 @@ class Project extends Component {
       name:this.state.currentUser.name,
       comment: this.state.comment,
     };
-    axios.post('/project/'+projectId+'/addcomment',postData,{ headers: authHeader() })
+    axios.post('http://127.0.0.1:8000/project/'+projectId+'/addcomment',postData,{ headers: authHeader() })
     .then(response =>{
       console.log(response);
       this.getProductData();
@@ -95,7 +97,9 @@ class Project extends Component {
     const isLoggedIn = this.state.currentUser
     if(isLoggedIn){
       var commentBox = <div>
-                      <textarea name="comment" id="comment" rows="5" onChange={this.handleChange} ></textarea>
+                      <textarea name="comment" id="comment" rows="4" cols="50" onChange={this.handleChange} ></textarea>
+                      <br />
+                      <br />
                       <Button variant="light" onClick={this.postComment}>Comment</Button>
                       </div> 
       var addToCart = <div><Button variant="primary" onClick={this.addToCart}>Add To Cart</Button></div>
@@ -105,15 +109,16 @@ class Project extends Component {
         <Helmet>
           <title>{ this.state.projectTitle }</title>
         </Helmet>
-        <div style={{ display:'inline-block',width:300,margin:50 }}>
-          <h3>{this.state.projectTitle}</h3>
-          <h4>{this.state.projectPrice}</h4>
+        <div className="project" style={{ display:'inline-block',width:300,margin:50 }}>
+          <h3>Title : {this.state.projectTitle}</h3>
+          <h4>Price: {this.state.projectPrice}</h4>
           {addToCart}
-          <p>{this.state.projectDescription}</p>
-          
+          <p>Description : {this.state.projectDescription}</p>
+        </div> 
+        <div className="commentArea">
           {commentBox}
         </div>
-        <div>
+        <div className="comments">
           {
             this.state.projectComments.map(COMMENT=>{
               return(

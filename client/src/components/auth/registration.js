@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
-import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Registration.css';
@@ -23,7 +22,12 @@ const validateForm = (errors,name,email,password) => {
   
 class Registration extends Component {  
   componentDidMount() {
-    document.body.className="registrationbody"
+    document.body.className="registrationbody";
+    if(this.props.location.state){
+      this.setState({
+        incorrectDetails:this.props.location.state.registrationError
+      })
+    }
   }
   constructor(props) {
     super(props);
@@ -96,7 +100,17 @@ class Registration extends Component {
     form.append("image",this.state.profileImage)
     this.props.register(form)
     .then(response=>{
-      this.props.history.push('/login');
+      if(!response.data.error){
+        this.props.history.push('/login');
+      }
+      else{
+        this.props.history.push({
+          pathname:'/register',
+          state: {registrationError:response.data.error}
+        });
+        window.location.reload();
+      }
+        
     })
     
     this.setState({
@@ -107,7 +121,7 @@ class Registration extends Component {
   }
   render() {
     const {errors} = this.state;
-
+    const registrationError= this.state.incorrectDetails;
     return (
       <div>
         <Helmet>
@@ -157,6 +171,8 @@ class Registration extends Component {
           <button type="submit" className="btn btn-primary btn-block">
             {this.props.loading ? 'Signing Up' : 'Sign Up'}
           </button>
+          {registrationError && 
+            <span className='error-message'>{registrationError}</span>}
         </form>  
       </div>
     )

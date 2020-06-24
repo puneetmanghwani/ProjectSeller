@@ -4,6 +4,8 @@ import { Navbar, Nav,NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Provider } from 'react-redux'
+import store from '../redux/store';
 import Home from './Home';
 import SearchProjects from './SearchProjects';
 import AllProjects from './AllProjects';
@@ -14,10 +16,9 @@ import Login from './auth/login';
 import Cart from './user/cart'
 import OrderConfirm from './user/orderconfirm';
 import Dashboard from './user/dashboard';
-import Test from './test';
 import jwt_decode from "jwt-decode";
 // import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-// import './App.css'; 
+import './App.css'; 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
@@ -40,12 +41,12 @@ var style = {
   width: "100%",
   
 }
-var phantom = {
-  display: 'block',
-  padding: '20px',
-  height: '60px',
-  width: '100%',
-}
+// var phantom = {
+//   display: 'block',
+//   padding: '20px',
+//   height: '60px',
+//   width: '100%',
+// }
 class App extends Component {
   
   constructor(props) {
@@ -117,7 +118,6 @@ class App extends Component {
           this.setState({
             authLoading: false
           });
-          // throw new Error('Could not authenticate you!');
           return response;
         }
         
@@ -132,7 +132,7 @@ register=(formData)=> {
       this.setState({
         authLoading: false
       });
-      return response.data;
+      return response;
     })
 }
 
@@ -142,15 +142,14 @@ getCurrentUser=()=> {
   render() {
     const isLoggedIn = this.state.currentUser
     
+    
     if(isLoggedIn){
       var toAddProject=<Link to={'/add-project'} className="nav-link">Sell</Link>;
-      var toTest=<Link to={'/test'} className="nav-link" >Test</Link>;
-      var toLogout=<Link to={'/login'} className="nav-link" onClick={this.logoutHandler}>Logout</Link>;
-      var toUser= <NavDropdown title="User" id="basic-nav-dropdown">
-                    <Link to={'/dashboard'} className="nav-link" ><NavDropdown.Item href="#action/3.1">Dashboard</NavDropdown.Item></Link>
-                    <NavDropdown.Item href="#action/3.2">Profile</NavDropdown.Item>
+      // var toLogout=<Link to={'/login'} className="nav-link" onClick={this.logoutHandler}>Logout</Link>;
+      var toUser= <NavDropdown title="User"  id="basic-nav-dropdown">
+                    <NavDropdown.Item ><Link to={'/dashboard'} className="nav-link" >Dashboard</Link></NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <Link to={'/login'} className="nav-link" onClick={this.logoutHandler}><NavDropdown.Item href="#action/3.4">Sign Out</NavDropdown.Item></Link>
+                    <Link to={'/login'} className="nav-link" onClick={this.logoutHandler}><NavDropdown.Item >Sign Out</NavDropdown.Item></Link>
                   </NavDropdown> 
 
       var cart = <Link to={'/cart'} className="nav-link">Cart</Link>;
@@ -160,6 +159,7 @@ getCurrentUser=()=> {
       var toSignUp=<Link to={'/register'} className="nav-link">Sign Up</Link>;
     }
     return (
+    <Provider store={store}>
     <Router>
         <div>
         <Navbar bg="light" expand="lg">
@@ -171,12 +171,12 @@ getCurrentUser=()=> {
               <Link to={'/'} className="nav-link">Home</Link>
               {toAddProject}
               {cart}
-              {toTest}
               {toSignIn}
               {toSignUp}
-              {toLogout}
               <Link to={'/projects'} className="nav-link">All Projects</Link>
+              
               {toUser}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Nav> 
           </Navbar.Collapse>
         </Navbar> 
@@ -188,18 +188,21 @@ getCurrentUser=()=> {
               <PrivateRoute path='/add-project' component={AddProject} logout={this.logoutHandler} />
               <Route path='/register' component={(props) => (<Registration register={this.register} loading={this.state.authLoading}  {...props} />)}  />
               <Route path='/login' component={(props) => (<Login login={this.login} loading={this.state.authLoading} {...props} />)} />
-              <PrivateRoute path='/test' component={Test} logout={this.logoutHandler} />
               <PrivateRoute path='/cart' component={Cart} logout={this.logoutHandler} />
               <PrivateRoute path='/orderplaced' component={OrderConfirm} logout={this.logoutHandler} />
               <PrivateRoute path='/dashboard' component={Dashboard} logout={this.logoutHandler} />
           </Switch>
-          <div className="phantom"/>
-            <div className="footer" style={style}>
-                Privacy Policy 
-                About Us
+          <div className="footer"/>
+            <div style={style}>
+               <div className="footer" > 
+                 About Me &nbsp;&nbsp;&nbsp;
+                 <a href="https://in.linkedin.com/in/puneet-manghwani-86191b169"  target="_blank" rel="noopener noreferrer">Linkedlin</a> &nbsp;&nbsp;&nbsp;
+                 <a href="https://github.com/puneetmanghwani/"  target="_blank" rel="noopener noreferrer">Github </a>
+                </div>
             </div>
         </div>
       </Router>
+      </Provider>
     );
   }
 }

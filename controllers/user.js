@@ -21,8 +21,9 @@ exports.register = (req,res,next) => {
     user.save(
         function(err){
             if(err){
-                res.status(401)
-                .json("Error registering new user please try again.");
+              res.json({
+                error: 'Email Already Exist'
+              });
             }
             else{
                 res.status(200).json("Welcome to Project Seller!");

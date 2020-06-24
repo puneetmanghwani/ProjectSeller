@@ -1,7 +1,12 @@
  
 .allProjectsBody {
-    background-color: #97b5d1;
-    /* text-align: center; */
-    
+    background-color: #d4e9cd;
+    text-align: center;
+    padding-bottom: 120px
   }
 
+.allCard {
+  padding: 5px;
+  margin: 40px 10px 10px 10px;
+  text-align: left;
+}

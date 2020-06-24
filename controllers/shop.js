@@ -17,7 +17,6 @@ exports.getSearchProjects = (req, res, next) => {
   var title= req.query.title;
   var minPrice= req.query.minPrice;
   var maxPrice= req.query.maxPrice;
-  
   if(!minPrice){
     minPrice=0;
   }
@@ -49,7 +48,6 @@ exports.getSearchProjects = (req, res, next) => {
 
 exports.getProject = (req, res, next) => {
   const projectId = req.params.projectId;
-  
   Project.findById(projectId)
     .then(project => {
         res.json(project);
