@@ -99,7 +99,7 @@ class App extends Component {
     });  
     return axios
     // axios
-    .post('http://localhost:8000/user/login',{
+    .post('/user/login',{
         email,
         password
     })
@@ -127,7 +127,7 @@ register=(formData)=> {
   this.setState({
     authLoading: true
   });
-    return axios.post("http://localhost:8000/user/register", formData,{ headers: { "Content-Type": "multipart/form-data" } })
+    return axios.post("/user/register", formData,{ headers: { "Content-Type": "multipart/form-data" } })
     .then(response=>{
       this.setState({
         authLoading: false

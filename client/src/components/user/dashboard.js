@@ -27,7 +27,7 @@ class Dashboard extends Component {
     this.getUserDetails();
   }
   getUserDetails=()=>{
-    axios.get('http://localhost:8000/user/details',{ headers: authHeader() })
+    axios.get('/user/details',{ headers: authHeader() })
     .then(user => {
     
       const {email,name,profileImage}=user.data;

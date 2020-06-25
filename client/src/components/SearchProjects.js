@@ -61,7 +61,7 @@ class SearchProjects extends Component {
       maxPrice: this.state.maxPrice
     }
 
-    axios.get('http://127.0.0.1:8000/search/',{ params:data })
+    axios.get('/search/',{ params:data })
     .then(PROJECTS => {
       this.setState({ PROJECTS:PROJECTS.data });
       

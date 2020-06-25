@@ -45,7 +45,7 @@ class AddProject extends Component {
       }
     };
     
-    axios.post('http://127.0.0.1:8000/add-product',postData ,axiosConfig)
+    axios.post('/add-product',postData ,axiosConfig)
     .then(response => console.log(response))
     .catch((err) => console.log("AXIOS ERROR: ", err))
     // const requestOptions = {
