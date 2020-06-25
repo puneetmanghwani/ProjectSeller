@@ -55,7 +55,7 @@ class Dashboard extends Component {
        Name : &nbsp; &nbsp; {this.state.name} <br />
        Email : &nbsp; &nbsp; {this.state.email}
        </div>
-       <div className="profileImage"><img src={'http://localhost:8000/profile/'+this.state.userImage} alt="User" /></div>
+       <div className="profileImage"><img src={'/profile/'+this.state.userImage} alt="User" /></div>
        <div className="joke">
          <h3>Joke</h3> <br /> 
         {this.props.jokeData.loading ?<div>Loading  ..............</div> : 
