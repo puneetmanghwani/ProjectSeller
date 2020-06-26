@@ -3,7 +3,24 @@
     padding-bottom: 120px;
   }
 
-.placeOrder {
+.cartDiv {
+    margin-top: 50px;
+}
+
+
+.itemRow {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.buttonCart {
+    margin-top: 20px;
+}
+.addCartProject {
+    margin-top: 100px;
+    /* line-height: 100px; */
+}
+/* .placeOrder {
     text-align: right;
     margin-left: 322;
 }
@@ -21,4 +38,4 @@
 .addCartProject {
     margin-left: 100px;
     line-height: 100px;
-}
+} */

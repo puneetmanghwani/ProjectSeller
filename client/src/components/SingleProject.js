@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
-import { Button } from 'react-bootstrap';
+import { Button,Container,Row,Col,InputGroup,FormControl,ListGroup } from 'react-bootstrap';
 import AuthService from "../services/auth_service";
 import authHeader from '../services/auth_header';
 import axios from "axios";
@@ -11,7 +11,12 @@ const Comment = props => {
   
   const {  name, comment } = props.comment;
   return(
-    <li>{name}  :  {comment}</li>
+    // <Row>
+    //   <Col md={{ span: 1}}>
+    <p className="break-text">{name}  :  {comment}
+    <hr /></p>
+    // {/* </Col>
+    // </Row> */}
   )
   
 }
@@ -97,7 +102,10 @@ class Project extends Component {
     const isLoggedIn = this.state.currentUser
     if(isLoggedIn){
       var commentBox = <div>
-                      <textarea name="comment" id="comment" rows="4" cols="50" onChange={this.handleChange} ></textarea>
+                      {/* <textarea name="comment" id="comment" rows="4" cols="50" onChange={this.handleChange} ></textarea> */}
+                      <InputGroup>
+                          <FormControl name="comment" id="comment" onChange={this.handleChange} rows={4}  as="textarea" />
+                      </InputGroup>
                       <br />
                       <br />
                       <Button variant="light" onClick={this.postComment}>Comment</Button>
@@ -106,27 +114,40 @@ class Project extends Component {
     }
     return (
       <div>
+        
         <Helmet>
           <title>{ this.state.projectTitle }</title>
         </Helmet>
-        <div className="project" style={{ display:'inline-block',width:300,margin:50 }}>
+        <Container fluid>
+        <Row className="projectRow">
+          <Col  md={{ span: 4, offset: 1 }}>
           <h3>Title : {this.state.projectTitle}</h3>
+          <br />
           <h4>Price: {this.state.projectPrice}</h4>
+          <br />
           {addToCart}
+          <br />
           <p>Description : {this.state.projectDescription}</p>
-        </div> 
-        <div className="commentArea">
+          </Col>
+          <Col md={{ span: 6}}>
+          {/* <Col  md={{ span: 7}}> */}
           {commentBox}
-        </div>
-        <div className="comments">
+          <br />
+          <br />
+          {/* </Col> */}
+         
           {
             this.state.projectComments.map(COMMENT=>{
               return(
                 <Comment key={COMMENT._id} comment={COMMENT} />
+                
               )
             })
           }
-        </div>
+         
+        </Col>
+        </Row>
+        </Container>
       </div>
     )
 

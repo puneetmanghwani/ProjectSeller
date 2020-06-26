@@ -1,7 +1,17 @@
+/* @import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'); */
+
+
+.break-text  {
+    word-wrap: break-word;
+  }
 .singleProjectBody {
     background-color: #ce5a60;
 }
 
+.projectRow {
+    margin-top: 100px;
+}
+/* 
 .project {
     line-height: 5;
     padding-top: 70px;
@@ -16,8 +26,6 @@
 
 .comments {
     float:right;
-    /* padding-top: 300px;
-    padding-left: 200px; */
     padding-right: 450px;
     margin-bottom: 100px;
-}
+} */
