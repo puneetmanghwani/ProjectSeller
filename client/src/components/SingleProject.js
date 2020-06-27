@@ -11,12 +11,10 @@ const Comment = props => {
   
   const {  name, comment } = props.comment;
   return(
-    // <Row>
-    //   <Col md={{ span: 1}}>
+    
     <p className="break-text">{name}  :  {comment}
     <hr /></p>
-    // {/* </Col>
-    // </Row> */}
+    
   )
   
 }
@@ -135,7 +133,9 @@ class Project extends Component {
           <br />
           <br />
           {/* </Col> */}
-         
+          
+          <h4>Comments</h4>
+          <br />
           {
             this.state.projectComments.map(COMMENT=>{
               return(

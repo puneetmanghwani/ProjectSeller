@@ -96,11 +96,12 @@ class Cart extends Component {
     }
     else{
       placeOrder=<div className="addCartProject">
+        <Container>
         <Row>
-        <Col md={{ span: 8, offset: 1 }}><h2>Please Add Some Projects in Cart</h2></Col>
+        <Col md={{ span: 10, offset: 1 }} xs={{ span: 8 }}><h2>Please Add Some Projects in Cart</h2></Col>
         </Row>
         <Row className="buttonCart">
-        <Col md={{ span: 3, offset: 1 }} xs={{ span: 12 }}>
+        <Col md={{ span: 3, offset: 1 }} xs={{ span: 5 }}>
         <Link to="/search">
           <Button  variant="primary" size="lg"> Search the Projects </Button>
         </Link> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -111,6 +112,7 @@ class Cart extends Component {
         </Link>
         </Col>
         </Row>
+        </Container>
       </div>
     }
     return (
