@@ -172,6 +172,7 @@ class Registration extends Component {
             Profile Image:
             <input  className="form-control" name="profileImage" id="profileImage" type="file" onChange={this.handleChange}></input>
           </label> */}
+          <Row>&nbsp; &nbsp;</Row>
           {this.props.loading ? <Button variant="primary" disabled>
                                   <Spinner
                                     as="span"
