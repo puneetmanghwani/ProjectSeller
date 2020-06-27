@@ -3,7 +3,8 @@ import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import {DebounceInput} from 'react-debounce-input';
-import { Card } from 'react-bootstrap';
+import { Card ,Container,Row,Col } from 'react-bootstrap';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SearchProjects.css';
 
@@ -19,7 +20,7 @@ const Project = props => {
     //   <h4>{price}</h4>
     //   <p>{description}</p>
     // </div>
-    <Card className="searchCard" style={{ display:'inline-block',width: '15rem' }}>
+    <Card className="searchCard" style={{ display:'inline-block',width: '14rem', marginRight:'3rem',marginBottom:'1rem' }}>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{price}</Card.Subtitle>
@@ -74,15 +75,18 @@ class SearchProjects extends Component {
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
-        <div className="searchForm">
-          <h2>Search Project</h2>
-          <form className="loginform ">
+        <Container fluid>
+        <Row>
+        <Col md={{ span: 4,offset:1 }}>
+          <h2><br /><br />Search Project</h2>
+          <form>
             <div className="form-group">
-              <label>Enter Title</label>
+              <label>Enter Title<br /></label>
               <DebounceInput
               type="text" name="title" id="title" placeholder="Enter Title" className="form-control "
               minLength={1} debounceTimeout={300}
               onChange={this.searchProjects} />
+              <br /><br />
             </div>
             {/* <DebounceInput
               type="text" name="title" id="title" placeholder="Enter Title" className="form-control "
@@ -92,11 +96,12 @@ class SearchProjects extends Component {
             {/* <br />
             <br /> */}
             <div className="form-group">
-              <label>Enter Price Range</label>
+              <label>Enter Price Range<br /></label>
               <DebounceInput
               type="number" name="minPrice" id="minPrice" placeholder="Minimum Price" className="form-control "
               minLength={1} debounceTimeout={300}
               onChange={this.searchProjects} />
+              <br />
               <DebounceInput
               type="number" name="maxPrice" id="maxPrice" placeholder="Maximum Price" className="form-control "
               minLength={1} debounceTimeout={300}
@@ -114,7 +119,10 @@ class SearchProjects extends Component {
               onChange={this.searchProjects} /> */}
             {/* </p> */}
           </form>
-        </div>
+        </Col>
+       
+        <Col md={{ offset: 1 }}>
+        <br /><br />
         {
           this.state.PROJECTS.map(PROJECT=>{
             return(
@@ -122,6 +130,9 @@ class SearchProjects extends Component {
             )
           })
         }
+        </Col>
+         </Row>
+        </Container>
       </div>
     )
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
+import { Container,Row,Col } from 'react-bootstrap';
+
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -94,8 +96,12 @@ class AddProject extends Component {
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
-        <div className="add"><h3>Add Project</h3></div>
-        <form onSubmit={this.handleSubmit} className="loginform">
+        <Container>
+        <Row>
+        <Col md={{ span: 5, offset: 3 }} >
+        <Col md={{ offset: 1 }}>
+        <div className="add"><h3><br />Add Project <br /><br /></h3></div>
+        <form onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label>Title</label>
           <input className="form-control " placeholder="Enter Title" name="title" id="title" type="text" onChange={this.handleChange} value={this.state.title} />
@@ -122,6 +128,10 @@ class AddProject extends Component {
           </label> */}
           <button type="submit" className="btn btn-primary btn-block">Add</button>
         </form>  
+        </Col>
+        </Col>
+        </Row>
+        </Container>
       </div>
     )
 

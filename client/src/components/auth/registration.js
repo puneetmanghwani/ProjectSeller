@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
+import { Button,Container,Row,Col,Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Registration.css';
 const TITLE = 'Sign Up';
 const validEmailRegex = 
@@ -127,8 +127,12 @@ class Registration extends Component {
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
-        
-        <form onSubmit={this.handleSubmit} className="registrationform">
+        <Container>
+        <Row>
+        <Col md={{ span: 5, offset: 3 }}>
+        <br /><br />
+        <Col md={{ offset: 1 }}>
+        <form onSubmit={this.handleSubmit} >
         <h3>Sign Up</h3>
           <div className="form-group">
             <label>Name</label>
@@ -168,12 +172,23 @@ class Registration extends Component {
             Profile Image:
             <input  className="form-control" name="profileImage" id="profileImage" type="file" onChange={this.handleChange}></input>
           </label> */}
-          <button type="submit" className="btn btn-primary btn-block">
-            {this.props.loading ? 'Signing Up' : 'Sign Up'}
-          </button>
+          {this.props.loading ? <Button variant="primary" disabled>
+                                  <Spinner
+                                    as="span"
+                                    animation="grow"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                  />
+                                  &nbsp; Signing Up.....</Button>
+                                  : <button type="submit" className="btn btn-primary btn-block">Sign Up</button>}
           {registrationError && 
             <span className='error-message'>{registrationError}</span>}
-        </form>  
+        </form>
+        </Col>
+        </Col>
+        </Row>
+        </Container>  
       </div>
     )
 

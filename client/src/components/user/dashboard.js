@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
-import { Button } from 'react-bootstrap';
+import { Button,Container,Row,Col,Image,Spinner } from 'react-bootstrap';
 import axios from "axios";
 import { connect } from 'react-redux'
 import {fetchJoke} from '../../redux/joke/jokeActions';
@@ -48,17 +48,51 @@ class Dashboard extends Component {
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
+      <Container>
        <div className="head">
-       <h2>Dashboard</h2>  
+       <br />
+       <br />
+      <Row>
+       <Col md={{ span: 4, offset: 4 }}  xs={{ span: 4, offset: 1 }}><Col md={{ span: 4, offset: 1 }}><h2>Dashboard</h2></Col></Col>
+      </Row>
        </div>
-       <div className="profileData">
+       <br />
+       <br />
+       <Row>
+       <Col md={{ span: 4, offset: 1 }} ><Image src={'/profile/'+this.state.userImage} alt="User" thumbnail />
+       <br />
+       <br />
+       </Col>
+       
+       <Col md={{ span: 4, offset: 1 }}>
        Name : &nbsp; &nbsp; {this.state.name} <br />
        Email : &nbsp; &nbsp; {this.state.email}
-       </div>
-       <div className="profileImage"><img src={'/profile/'+this.state.userImage} alt="User" /></div>
-       <div className="joke">
-         <h3>Joke</h3> <br /> 
-        {this.props.jokeData.loading ?<div>Loading  ..............</div> : 
+       <br />
+       <br />
+       <br />
+       
+       </Col>
+       </Row>
+       <Row>
+         
+         <Col md={{ span: 11, offset: 1 }} xs={{ offset:3 }}><h3>Joke</h3></Col>
+        
+         
+           <Col md={{ span: 11, offset: 1 }}><br />
+                    {this.props.jokeData.loading ?<Spinner animation="border" /> : 
+                                      <div>Ques. &nbsp; {this.props.jokeData.joke.setup}<br/><br />
+                                          Ans. &nbsp;  {this.props.jokeData.joke.punchline}
+                                          
+                                      </div>}
+         </Col>
+         <Col md={{ offset: 1 }} xs={{ offset:3 }}>
+         <br />
+         <Button onClick={() => this.props.fetchJoke()}>New Joke</Button>
+         </Col>
+       </Row>
+        {/* <Row>
+         <Row><h3>Joke</h3></Row> <br /> 
+        {this.props.jokeData.loading ?<Spinner animation="border" /> : 
                                       <div>Ques. &nbsp; {this.props.jokeData.joke.setup}<br/>
                                           Ans. &nbsp;  {this.props.jokeData.joke.punchline}
                                       </div>}
@@ -66,7 +100,8 @@ class Dashboard extends Component {
         <br />
         <br />
         <Button onClick={() => this.props.fetchJoke()}>New Joke</Button>
-       </div>
+       </Row>  */}
+       </Container>
       </div>
     )
 

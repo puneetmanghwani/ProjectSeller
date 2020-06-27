@@ -36,6 +36,7 @@ class Home extends Component {
           <Col md={{ span: 3, offset: 1 }} >
           <Link to="/search">
             <Button className="homebtn"  variant="light" size="lg"> Buy Side Project </Button>
+            <br /><br />
           </Link>
           </Col>
           <Col >

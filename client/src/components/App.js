@@ -192,11 +192,11 @@ getCurrentUser=()=> {
               <PrivateRoute path='/orderplaced' component={OrderConfirm} logout={this.logoutHandler} />
               <PrivateRoute path='/dashboard' component={Dashboard} logout={this.logoutHandler} />
           </Switch>
-            {/* <Navbar bg="light" fixed="bottom" >
+            <Navbar bg="light" fixed="bottom" >
             About Me &nbsp;&nbsp;&nbsp;
-            <a className="nav-link" href="https://in.linkedin.com/in/puneet-manghwani-86191b169"  target="_blank" rel="noopener noreferrer">Linkedlin</a> &nbsp;&nbsp;&nbsp;
+            <a className="nav-link" href="https://in.linkedin.com/in/puneet-manghwani-86191b169"  target="_blank" rel="noopener noreferrer">Linkedlin</a> 
             <a className="nav-link" href="https://github.com/puneetmanghwani/"  target="_blank" rel="noopener noreferrer">Github </a>
-              </Navbar> */}
+              </Navbar>
         </div>
       </Router>
       </Provider>

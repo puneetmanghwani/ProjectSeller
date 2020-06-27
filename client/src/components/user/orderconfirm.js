@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
-import { Button } from 'react-bootstrap';
+import { Button,Container,Row,Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './OrderConfirm.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,17 +15,23 @@ class OrderConfirm extends Component {
   render() {
     return (
       <div className="mainConfirm">
-        <div className="mainConfirm">
+        
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
-        <h2>Thank you your order has been placed.</h2>
-        <h3>Yor will receive a confirmation email regarding it.</h3>
-        <br />
-        <Link to="/">
-          <Button  variant="primary" size="lg"> Return to Home Page </Button>
-        </Link>
-        </div>
+        <Container>
+        <Row style={{ marginTop:"100px" }}>
+          <Col>
+            <h2>Thank you your order has been placed.</h2>
+            <br />
+            <h3>Yor will receive a confirmation email regarding it.</h3>
+            <br />
+            <Link to="/">
+              <Button  variant="primary" size="lg"> Return to Home Page </Button>
+            </Link>
+          </Col>
+        </Row>
+        </Container>
       </div>
     )
 

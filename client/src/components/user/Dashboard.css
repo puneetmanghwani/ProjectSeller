@@ -3,9 +3,10 @@
 
 .dashboardBody {
     background-color: #dd6770;   
+    padding-bottom: 120px;
   }
 
-.head {
+/* .head {
     text-align: center;
     padding-top: 50px;
     font-family: 'Krona One', sans-serif;
@@ -27,4 +28,4 @@
 .joke {
     margin-right: 200px;
     float: right;
-}
+} */

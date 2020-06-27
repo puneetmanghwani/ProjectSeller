@@ -1,10 +1,10 @@
  
 .searchProjectsBody {
     background-color: #d4e9cd;
-    text-align: center;
+    /* text-align: center; */
     padding-bottom: 120px
   }
-
+/* 
 .searchCard {
   padding: 5px;
   margin: 40px 10px 10px 10px;
@@ -13,8 +13,4 @@
 
 .searchForm {
     margin: 10px 10px 10px 10px;
-    /* padding-right: 900px; */
-    /* text-align: left; */
-     /* width: 100%; */
-  /*clear: both; */
-}
+} */

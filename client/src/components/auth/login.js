@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { Button,Container,Row,Col,Spinner } from 'react-bootstrap';
 import './Login.css';
 const TITLE = 'Sign In';
 
@@ -99,7 +99,13 @@ class Login extends Component {
           <title>{ TITLE }</title>
         </Helmet>
         <div >
-        <form onSubmit={this.handleSubmit} className="loginform">
+        <Container>
+        <Row>
+        
+        <Col md={{ span: 5, offset: 3 }} >
+        <Col md={{ offset: 1 }}>
+        <br /><br /><br />
+        <form onSubmit={this.handleSubmit} >
         {/* <div class="col-lg-4 col-lg-offset-4"> */}
           <h3>Sign In</h3>
           <div className="form-group">
@@ -116,16 +122,24 @@ class Login extends Component {
             <label>Password</label>
             <input className="form-control" placeholder="Enter password" name="password" id="password" type="password" onChange={this.handleChange} value={this.state.password} />
           </div>
-          {/* <label>
-            Password:
-            <input className="form-control" placeholder="Enter password" name="password" id="password" type="password" onChange={this.handleChange} value={this.state.password} />
-          </label> */}
-          <button type="submit" className="btn btn-primary btn-block">
-            {this.props.loading ? 'Signing In...' : 'Sign In'}
-          </button>
+          {this.props.loading ? <Button variant="primary" disabled>
+                                  <Spinner
+                                    as="span"
+                                    animation="grow"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                  />
+                                  &nbsp; Signing In.....</Button>
+                                  : <button type="submit" className="btn btn-primary btn-block">Sign In</button>}
           {loginError && 
             <span className='error-message'>{loginError}</span>}
+          
         </form>  
+        </Col>
+        </Col>
+        </Row>
+        </Container>
         </div>
        
         
