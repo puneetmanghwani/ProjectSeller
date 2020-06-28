@@ -27,4 +27,3 @@ router.get('/details',withAuth,userController.userDetails);
 
 module.exports = router;
 
-// upload.fields(['file'])

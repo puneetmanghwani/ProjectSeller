@@ -90,17 +90,7 @@ class Dashboard extends Component {
          <Button onClick={() => this.props.fetchJoke()}>New Joke</Button>
          </Col>
        </Row>
-        {/* <Row>
-         <Row><h3>Joke</h3></Row> <br /> 
-        {this.props.jokeData.loading ?<Spinner animation="border" /> : 
-                                      <div>Ques. &nbsp; {this.props.jokeData.joke.setup}<br/>
-                                          Ans. &nbsp;  {this.props.jokeData.joke.punchline}
-                                      </div>}
         
-        <br />
-        <br />
-        <Button onClick={() => this.props.fetchJoke()}>New Joke</Button>
-       </Row>  */}
        </Container>
       </div>
     )

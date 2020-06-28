@@ -138,40 +138,28 @@ class Registration extends Component {
             <label>Name</label>
             <input className="form-control" placeholder="Name" name="name" id="name" type="text" onChange={this.handleChange} value={this.state.name}  />
           </div>
-          {/* <label>
-            Name:
-            <input className="form-control" name="name" id="name" type="text" onChange={this.handleChange} value={this.state.name}  />
-          </label> */}
+          
           {errors.name.length > 0 && 
               <span className='error-message'>{errors.name}</span>}
           <div className="form-group">
             <label>Email address</label>
             <input className="form-control" placeholder="Enter email" name="email" id="email" type="email" onChange={this.handleChange} value={this.state.email} />
           </div>
-          {/* <label>
-            Email Address:
-            <input className="form-control" placeholder="Enter email" name="email" id="email" type="email" onChange={this.handleChange} value={this.state.email} />
-          </label> */}
+          
           {errors.email.length > 0 && 
             <span className='error-message'>{errors.email}</span>}
           <div className="form-group">
             <label>Password</label>
             <input className="form-control" placeholder="Enter password" name="password" id="password" type="password" onChange={this.handleChange} value={this.state.password} />
           </div>
-          {/* <label>
-            Password:
-            <input className="form-control" placeholder="Enter password" name="password" id="password" type="password" onChange={this.handleChange} value={this.state.password} />
-          </label> */}
+          
           {errors.password.length > 0 && 
             <span className='error-message'>{errors.password}</span>}
           <div className="form-group">
             <label>Profile Image</label>
             <input  className="form-control" name="profileImage" id="profileImage" type="file" onChange={this.handleChange}></input>
           </div>
-          {/* <label>
-            Profile Image:
-            <input  className="form-control" name="profileImage" id="profileImage" type="file" onChange={this.handleChange}></input>
-          </label> */}
+          
           <Row>&nbsp; &nbsp;</Row>
           {this.props.loading ? <Button variant="primary" disabled>
                                   <Spinner

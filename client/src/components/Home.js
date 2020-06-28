@@ -23,16 +23,13 @@ class Home extends Component {
           <title>{ TITLE }</title>
         </Helmet>
         <Container fluid >
-        {/* <div className="homehead"> */}
         <Row >
           <Col md={{ span: 5, offset: 1 }}><p> Profitable side projects to Buy/Sell</p></Col>
         </Row>
         <Row >
         <Col md={{ span: 10, offset: 1 }}><p>Project Assist is a marketplace where one can sell and buy projects.</p></Col>
         </Row> 
-        {/* </div> */}
         <Row className="homebutton">
-        {/* <div className="homemid"> */}
           <Col md={{ span: 3, offset: 1 }} >
           <Link to="/search">
             <Button className="homebtn"  variant="light" size="lg"> Buy Side Project </Button>
@@ -44,7 +41,6 @@ class Home extends Component {
           <Button className="homebtn" variant="light" size="lg"> Sell Side Project </Button>
           </Link>
           </Col>
-        {/* </div> */}
         </Row>
         </Container>
       </div>

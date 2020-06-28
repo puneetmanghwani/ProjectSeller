@@ -15,11 +15,7 @@ const Project = props => {
   
   const { _id, title, price, description } = props.project;
   return(
-    // <div style={{ display:'inline-block',width:300,margin:50 }}>
-    //   <Link to={'/project/'+title+'-'+_id} ><h3>{title}</h3></Link>
-    //   <h4>{price}</h4>
-    //   <p>{description}</p>
-    // </div>
+   
     <Card className="searchCard" style={{ display:'inline-block',width: '14rem', marginRight:'3rem',marginBottom:'1rem' }}>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
@@ -88,13 +84,7 @@ class SearchProjects extends Component {
               onChange={this.searchProjects} />
               <br /><br />
             </div>
-            {/* <DebounceInput
-              type="text" name="title" id="title" placeholder="Enter Title" className="form-control "
-              minLength={1} debounceTimeout={300}
-              onChange={this.searchProjects} /> */}
-              
-            {/* <br />
-            <br /> */}
+           
             <div className="form-group">
               <label>Enter Price Range<br /></label>
               <DebounceInput
@@ -107,17 +97,7 @@ class SearchProjects extends Component {
               minLength={1} debounceTimeout={300}
               onChange={this.searchProjects} />
             </div>
-            {/* <p> */}
-            {/* Enter Price Range
-            <DebounceInput
-              type="number" name="minPrice" id="minPrice" placeholder="Minimum Price"
-              minLength={1} debounceTimeout={300}
-              onChange={this.searchProjects} />
-            <DebounceInput
-              type="number" name="maxPrice" id="maxPrice" placeholder="Maximum Price"
-              minLength={1} debounceTimeout={300}
-              onChange={this.searchProjects} /> */}
-            {/* </p> */}
+            
           </form>
         </Col>
        

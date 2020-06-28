@@ -100,7 +100,6 @@ class Project extends Component {
     const isLoggedIn = this.state.currentUser
     if(isLoggedIn){
       var commentBox = <div>
-                      {/* <textarea name="comment" id="comment" rows="4" cols="50" onChange={this.handleChange} ></textarea> */}
                       <InputGroup>
                           <FormControl name="comment" id="comment" onChange={this.handleChange} rows={4}  as="textarea" />
                       </InputGroup>
@@ -128,11 +127,9 @@ class Project extends Component {
           <p>Description : {this.state.projectDescription}</p>
           </Col>
           <Col md={{ span: 6}}>
-          {/* <Col  md={{ span: 7}}> */}
           {commentBox}
           <br />
           <br />
-          {/* </Col> */}
           
           <h4>Comments</h4>
           <br />

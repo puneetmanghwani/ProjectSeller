@@ -106,16 +106,12 @@ class Login extends Component {
         <Col md={{ offset: 1 }}>
         <br /><br /><br />
         <form onSubmit={this.handleSubmit} >
-        {/* <div class="col-lg-4 col-lg-offset-4"> */}
           <h3>Sign In</h3>
           <div className="form-group">
             <label>Email address</label>
             <input className="form-control " placeholder="Enter email" name="email" id="email" type="email" onChange={this.handleChange} value={this.state.email} />
           </div>
-          {/* <label>
-            Email Address:
-            <input name="email" id="email" type="email" onChange={this.handleChange} value={this.state.email} />
-          </label> */}
+          
           {errors.email.length > 0 && 
             <span className='error-message'>{errors.email}</span>}
           <div className="form-group">

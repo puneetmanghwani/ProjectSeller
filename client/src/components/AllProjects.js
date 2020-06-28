@@ -14,11 +14,7 @@ const Project = props => {
   
   const { _id, title, price, description } = props.project;
   return(
-    // <div className="" style={{ display:'inline-block',width:300,margin:50 }}>
-    //   <Link to={'http://127.0.0.1:8000/project/'+title+'-'+_id} ><h3>{title}</h3></Link>
-    //   <h4>{price}</h4>
-    //   <p>{description}</p>
-    // </div>
+    
     <Card className="allCard" style={{ display:'inline-block',width: '15rem' }}>
       <Card.Body>
         <Card.Title> <Link to={'/project/'+title+'-'+_id} >{title}</Link></Card.Title>

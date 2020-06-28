@@ -17,7 +17,6 @@ import Cart from './user/cart'
 import OrderConfirm from './user/orderconfirm';
 import Dashboard from './user/dashboard';
 import jwt_decode from "jwt-decode";
-// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -81,7 +80,6 @@ class App extends Component {
       authLoading: true
     });  
     return axios
-    // axios
     .post('/user/login',{
         email,
         password
@@ -128,7 +126,6 @@ getCurrentUser=()=> {
     
     if(isLoggedIn){
       var toAddProject=<Link to={'/add-project'} className="nav-link">Sell</Link>;
-      // var toLogout=<Link to={'/login'} className="nav-link" onClick={this.logoutHandler}>Logout</Link>;
       var toUser= <NavDropdown title="User"  id="basic-nav-dropdown">
                     <NavDropdown.Item ><Link to={'/dashboard'} className="nav-link" >Dashboard</Link></NavDropdown.Item>
                     <NavDropdown.Divider />
